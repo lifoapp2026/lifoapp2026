@@ -12,61 +12,84 @@
     :root {
       --logix-merah: #B71C1C;
       --logix-merah-bright: #E53935;
-      --logix-merah-glow: rgba(229, 57, 53, 0.25);
+      --logix-merah-glow: rgba(229, 57, 53, 0.35);
       --logix-putih: #FFFFFF;
-      --logix-bg: #F8F9FA;
-      --logix-card-bg: rgba(255, 255, 255, 0.92);
+      --logix-bg: #F4F5F7;
+      --logix-card-bg: rgba(255, 255, 255, 0.90);
       --text-dark: #1E1E1E;
       --text-muted: #555555;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
     
-    /* BACKGROUND BATIK SEAMLESS PATTERN */
+    /* BACKGROUND FULL SESUAI GAMBAR BATIK PILIHAN KAMU */
     body {
       background-color: var(--logix-bg);
-      /* Pattern SVG Batik Transparan */
-      background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 0 C65 20, 80 35, 100 40 C80 45, 65 60, 60 80 C55 60, 40 45, 20 40 C40 35, 55 20, 60 0 Z M60 120 C65 100, 80 85, 100 80 C80 75, 65 60, 60 40 C55 60, 40 75, 20 80 C40 85, 55 100, 60 120 Z' fill='%20b71c1c' fill-opacity='0.04'/%3E%3Cpath d='M0 60 C20 65, 35 80, 40 100 C45 80, 60 65, 80 60 C60 55, 45 40, 40 20 C35 40, 20 55, 0 60 Z' fill='%20b71c1c' fill-opacity='0.03'/%3E%3C/svg%3E");
+      background-image: radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.92) 0%, rgba(240, 242, 245, 0.85) 100%), 
+                        url("data:image/svg+xml,%3Csvg width='600' height='600' viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d0d4dc' stroke-width='1.5' stroke-opacity='0.45'%3E%3Ccircle cx='300' cy='600' r='280'/%3E%3Ccircle cx='300' cy='600' r='220' stroke-dasharray='6 6'/%3E%3Ccircle cx='300' cy='600' r='160'/%3E%3Cpath d='M300 320 Q350 460 300 600 Q250 460 300 320 Z' fill='rgba(255,255,255,0.6)'/%3E%3Cpath d='M20 600 Q160 550 300 600 Q160 650 20 600 Z' fill='rgba(255,255,255,0.6)'/%3E%3Cpath d='M580 600 Q440 550 300 600 Q440 650 580 600 Z' fill='rgba(255,255,255,0.6)'/%3E%3C/g%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: bottom center;
+      background-attachment: fixed;
+      background-size: cover;
       color: var(--text-dark);
       line-height: 1.6;
       overflow-x: hidden;
     }
 
-    /* ANIMASI KUNCI: ROTATING BATIK MANDALA */
-    @keyframes rotateBatik {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+    /* ANIMASI PUTARAN MANDALA 50% EDGE */
+    @keyframes rotateEdgeBatik {
+      from { transform: translateX(-50%) rotate(0deg); }
+      to { transform: translateX(-50%) rotate(360deg); }
     }
 
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 0 0 var(--logix-merah-glow); }
-      70% { box-shadow: 0 0 0 15px rgba(229, 57, 53, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0); }
+    /* ANIMASI GOYANG / POP-UP CARD SAAT SCROLL */
+    @keyframes popShake {
+      0% { opacity: 0; transform: translateY(50px) scale(0.92); }
+      60% { opacity: 1; transform: translateY(-8px) scale(1.02); }
+      80% { transform: translateY(4px) scale(0.99); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes borderGlowPulse {
+      0% { border-color: rgba(183, 28, 28, 0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+      50% { border-color: rgba(229, 57, 53, 0.8); box-shadow: 0 12px 35px var(--logix-merah-glow); }
+      100% { border-color: rgba(183, 28, 28, 0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
     }
 
-    /* ELEMEN MANDALA MUTER DI POJOK HALAMAN */
-    .rotating-mandala {
+    /* CLASS KHUSUS UNTUK EFEK GOYANG SAAT DI-SCROLL */
+    .scroll-reveal {
+      opacity: 0;
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .scroll-reveal.revealed {
+      animation: popShake 0.8s forwards;
+    }
+
+    /* DEKORASI MANDALA MUTER SETENGAH DI PINGGIRAN (BOTTOM & TOP EDGE) */
+    .half-rotating-mandala {
       position: absolute;
-      width: 480px;
-      height: 480px;
-      opacity: 0.12;
+      left: 50%;
+      width: 650px;
+      height: 650px;
+      opacity: 0.35;
       pointer-events: none;
       z-index: 1;
-      animation: rotateBatik 45s linear infinite;
+      transform-origin: center center;
     }
-    .mandala-hero { top: -100px; right: -100px; }
-    .mandala-lomba { bottom: -120px; left: -120px; }
+    .mandala-bottom {
+      bottom: -325px;
+      animation: rotateEdgeBatik 55s linear infinite;
+    }
+    .mandala-top {
+      top: -325px;
+      animation: rotateEdgeBatik 65s linear infinite reverse;
+    }
 
     /* NAVBAR & DROPDOWN */
     nav {
-      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(14px);
       padding: 16px 8%; display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 2px solid #F0F0F5; position: sticky; top: 0; z-index: 100;
+      border-bottom: 2px solid #EAEAEA; position: sticky; top: 0; z-index: 100;
       box-shadow: 0 4px 20px rgba(0,0,0,0.03);
     }
     .brand { font-size: 1.45rem; font-weight: 900; color: var(--logix-merah); letter-spacing: 1.5px; text-decoration: none; }
@@ -83,7 +106,6 @@
       background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 12px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 12px 0; min-width: 210px;
       display: none; flex-direction: column; z-index: 101; margin-top: 10px;
-      animation: slideUp 0.2s ease;
     }
     .nav-item:hover .dropdown-menu { display: flex; }
     .dropdown-item {
@@ -94,7 +116,7 @@
 
     /* LANGUAGE SWITCHER */
     .lang-switcher {
-      display: flex; background: #F0F0F5; border-radius: 20px; padding: 3px; font-weight: 800; font-size: 0.8rem; cursor: pointer;
+      display: flex; background: #EAEAEA; border-radius: 20px; padding: 3px; font-weight: 800; font-size: 0.8rem; cursor: pointer;
     }
     .lang-btn { padding: 4px 10px; border-radius: 16px; transition: 0.3s; color: #777; }
     .lang-btn.active { background: var(--logix-merah); color: #FFF; }
@@ -102,9 +124,9 @@
     /* HERO BANNER */
     .hero {
       position: relative; background: transparent; padding: 90px 8% 80px;
-      overflow: hidden; border-bottom: 1px solid #EBEBEB;
+      overflow: hidden; border-bottom: 1px solid #E5E5E5;
     }
-    .hero-content { position: relative; z-index: 2; max-width: 680px; animation: slideUp 0.8s ease; }
+    .hero-content { position: relative; z-index: 2; max-width: 680px; }
     .hero-tag {
       display: inline-block; background: #FFEBEE; color: var(--logix-merah);
       padding: 6px 16px; border-radius: 30px; font-weight: 700; font-size: 0.82rem;
@@ -127,23 +149,25 @@
       box-shadow: 0 8px 25px rgba(229, 57, 53, 0.4);
     }
     .btn-outline {
-      background: rgba(255, 255, 255, 0.8); border: 2px solid var(--logix-merah); color: var(--logix-merah);
+      background: rgba(255, 255, 255, 0.9); border: 2px solid var(--logix-merah); color: var(--logix-merah);
     }
     .btn-outline:hover { background: #FFEBEE; transform: translateY(-2px); }
     .btn-drive { background: #0F9D58; color: white; display: block; text-align: center; margin-top: 12px; }
 
     /* SECTIONS */
     .section { padding: 80px 8%; position: relative; }
-    .section-title { text-align: center; margin-bottom: 45px; }
+    .section-title { text-align: center; margin-bottom: 45px; position: relative; z-index: 2; }
     .section-title h2 { font-size: 2.1rem; color: var(--logix-merah); font-weight: 900; }
     .section-title p { color: var(--text-muted); font-size: 0.95rem; }
 
-    /* SHOWCASE / TENTANG KAMI */
+    /* BORDER BERGERAK & BINGKAI INTERAKTIF */
     .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; position: relative; z-index: 2; }
     @media (max-width: 850px) { .showcase-grid { grid-template-columns: 1fr; } }
+    
     .showcase-img-box {
       position: relative; border-radius: 20px; overflow: hidden;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.12); border: 4px solid #FFF;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.12); border: 4px solid var(--logix-merah);
+      animation: borderGlowPulse 4s infinite ease-in-out;
     }
     .showcase-img-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .showcase-badge {
@@ -153,14 +177,15 @@
     }
 
     .grid-about, .grid-lomba { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; position: relative; z-index: 2; }
+    
     .about-card, .card-lomba {
-      background: var(--logix-card-bg); backdrop-filter: blur(8px);
-      padding: 32px; border-radius: 18px; border: 1px solid rgba(235, 235, 235, 0.8);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.04); transition: 0.35s ease;
+      background: var(--logix-card-bg); backdrop-filter: blur(10px);
+      padding: 32px; border-radius: 18px; border: 2px solid rgba(183, 28, 28, 0.2);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: all 0.35s ease;
     }
     .card-lomba:hover {
-      transform: translateY(-8px); border-color: var(--logix-merah-bright);
-      box-shadow: 0 14px 35px var(--logix-merah-glow);
+      transform: translateY(-10px) scale(1.02); border-color: var(--logix-merah-bright);
+      box-shadow: 0 16px 40px var(--logix-merah-glow);
     }
     .badge-lomba {
       display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 0.78rem;
@@ -172,15 +197,16 @@
       max-width: 550px; margin: 0 auto 35px; position: relative; z-index: 2;
     }
     .faq-search-box input {
-      width: 100%; padding: 14px 22px; border-radius: 30px; border: 2px solid #E0E0E0;
-      outline: none; font-size: 0.95rem; transition: 0.3s; background: rgba(255,255,255,0.9);
+      width: 100%; padding: 14px 22px; border-radius: 30px; border: 2px solid #DDD;
+      outline: none; font-size: 0.95rem; transition: 0.3s; background: rgba(255,255,255,0.95);
     }
     .faq-search-box input:focus { border-color: var(--logix-merah); box-shadow: 0 0 0 4px var(--logix-merah-glow); }
 
     .faq-item {
-      background: rgba(255, 255, 255, 0.95); border: 1px solid #EBEBEB; border-radius: 14px; margin-bottom: 14px;
+      background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(8px); border: 2px solid rgba(183, 28, 28, 0.15); border-radius: 14px; margin-bottom: 14px;
       overflow: hidden; transition: 0.3s; position: relative; z-index: 2;
     }
+    .faq-item:hover { border-color: var(--logix-merah-bright); }
     .faq-question {
       padding: 18px 24px; font-weight: 800; font-size: 0.95rem; cursor: pointer;
       display: flex; justify-content: space-between; align-items: center; color: var(--text-dark);
@@ -191,14 +217,17 @@
     .faq-item.active .faq-answer { display: block; }
     .faq-item.active { border-color: var(--logix-merah-bright); background: #FFFAFA; }
 
-    /* GALLERY GRID */
+    /* GALLERY GRID WITH BORDER HOVER SHAKE */
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; position: relative; z-index: 2; }
     .gallery-card {
       position: relative; border-radius: 16px; overflow: hidden; height: 220px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.3s; border: 3px solid #FFF;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.4s ease; border: 3px solid rgba(255, 255, 255, 0.8);
+    }
+    .gallery-card:hover {
+      transform: scale(1.04) rotate(1deg); border-color: var(--logix-merah);
+      box-shadow: 0 12px 30px var(--logix-merah-glow);
     }
     .gallery-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
-    .gallery-card:hover img { transform: scale(1.08); }
     .gallery-overlay {
       position: absolute; bottom: 0; left: 0; right: 0; padding: 15px;
       background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: #FFF; font-size: 0.85rem; font-weight: bold;
@@ -215,7 +244,6 @@
       background: #FFFFFF; border-radius: 20px; width: 100%; max-width: 600px;
       padding: 35px; position: relative; border-top: 8px solid var(--logix-merah);
       box-shadow: 0 20px 50px rgba(0,0,0,0.25); max-height: 92vh; overflow-y: auto;
-      animation: slideUp 0.4s ease;
     }
 
     .close-btn { position: absolute; top: 18px; right: 22px; font-size: 28px; cursor: pointer; color: #AAA; transition: 0.2s; }
@@ -238,12 +266,11 @@
     }
     .step-circle.active {
       background: var(--logix-merah); color: #FFF; border-color: #FFF;
-      animation: pulseGlow 2s infinite;
     }
 
     /* FORM ELEMENTS */
     .step-content { display: none; }
-    .step-content.active { display: block; animation: slideUp 0.3s ease; }
+    .step-content.active { display: block; }
 
     .form-group { margin-bottom: 18px; text-align: left; }
     .form-group label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 0.88rem; color: #333; }
@@ -310,20 +337,19 @@
     </div>
   </nav>
 
-  <!-- HERO SECTION CONTAINS ROTATING MANDALA -->
+  <!-- HERO SECTION -->
   <section class="hero">
-    <!-- SVG MANDALA HIASAN MUTER -->
-    <svg class="rotating-mandala mandala-hero" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-      <g fill="none" stroke="#B71C1C" stroke-width="3">
-        <circle cx="250" cy="250" r="230" stroke-dasharray="8 8"/>
-        <circle cx="250" cy="250" r="180"/>
-        <circle cx="250" cy="250" r="120" stroke-dasharray="4 4"/>
-        <!-- Kelopak Mandala -->
-        <path d="M250 20 Q300 130 250 250 Q200 130 250 20 Z" fill="rgba(183,28,28,0.15)"/>
-        <path d="M250 480 Q300 370 250 250 Q200 370 250 480 Z" fill="rgba(183,28,28,0.15)"/>
-        <path d="M20 250 Q130 300 250 250 Q130 200 20 250 Z" fill="rgba(183,28,28,0.15)"/>
-        <path d="M480 250 Q370 300 250 250 Q370 200 480 250 Z" fill="rgba(183,28,28,0.15)"/>
-        <circle cx="250" cy="250" r="40" fill="#B71C1C"/>
+    <!-- SVG HALF MANDALA DENGAN ANIMASI ROTATE -->
+    <svg class="half-rotating-mandala mandala-top" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#B71C1C" stroke-width="2.5">
+        <circle cx="300" cy="300" r="280" stroke-dasharray="12 8"/>
+        <circle cx="300" cy="300" r="220"/>
+        <circle cx="300" cy="300" r="150" stroke-dasharray="6 4"/>
+        <path d="M300 20 Q370 160 300 300 Q230 160 300 20 Z" fill="rgba(183,28,28,0.1)"/>
+        <path d="M300 580 Q370 440 300 300 Q230 440 300 580 Z" fill="rgba(183,28,28,0.1)"/>
+        <path d="M20 300 Q160 370 300 300 Q160 230 20 300 Z" fill="rgba(183,28,28,0.1)"/>
+        <path d="M580 300 Q440 370 300 300 Q440 230 580 300 Z" fill="rgba(183,28,28,0.1)"/>
+        <circle cx="300" cy="300" r="60" fill="rgba(229,57,53,0.2)"/>
       </g>
     </svg>
 
@@ -336,9 +362,9 @@
     </div>
   </section>
 
-  <!-- TENTANG LOGIX APP (SHOWCASE PROFIL PRESTASI) -->
+  <!-- TENTANG LOGIX APP (EFEK SCROLL SHAKE REVEAL) -->
   <section id="tentang" class="section">
-    <div class="showcase-grid">
+    <div class="showcase-grid scroll-reveal">
       <div class="showcase-img-box">
         <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" alt="Komunitas HEXA & Prestasi LOGIX">
         <div class="showcase-badge">
@@ -359,28 +385,28 @@
     </div>
   </section>
 
-  <!-- PERLOMBAAN CONTAINS SECOND ROTATING MANDALA -->
-  <section id="lomba" class="section" style="background: rgba(255,255,255,0.7);">
-    <!-- SVG MANDALA KEDUA DI POJOK KIRI-BAWAH -->
-    <svg class="rotating-mandala mandala-lomba" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-      <g fill="none" stroke="#B71C1C" stroke-width="3">
-        <circle cx="250" cy="250" r="220" stroke-dasharray="10 6"/>
-        <circle cx="250" cy="250" r="160"/>
-        <path d="M250 30 Q310 140 250 250 Q190 140 250 30 Z" fill="rgba(183,28,28,0.12)"/>
-        <path d="M250 470 Q310 360 250 250 Q190 360 250 470 Z" fill="rgba(183,28,28,0.12)"/>
-        <path d="M30 250 Q140 310 250 250 Q140 190 30 250 Z" fill="rgba(183,28,28,0.12)"/>
-        <path d="M470 250 Q360 310 250 250 Q360 190 470 250 Z" fill="rgba(183,28,28,0.12)"/>
-        <circle cx="250" cy="250" r="50" fill="#E53935"/>
+  <!-- PERLOMBAAN (EFEK SCROLL SHAKE REVEAL) -->
+  <section id="lomba" class="section">
+    <!-- SVG HALF MANDALA KEDUA -->
+    <svg class="half-rotating-mandala mandala-bottom" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#B71C1C" stroke-width="2.5">
+        <circle cx="300" cy="300" r="270" stroke-dasharray="10 8"/>
+        <circle cx="300" cy="300" r="210"/>
+        <path d="M300 30 Q360 160 300 300 Q240 160 300 30 Z" fill="rgba(183,28,28,0.08)"/>
+        <path d="M300 570 Q360 440 300 300 Q240 440 300 570 Z" fill="rgba(183,28,28,0.08)"/>
+        <path d="M30 300 Q160 360 300 300 Q160 240 30 300 Z" fill="rgba(183,28,28,0.08)"/>
+        <path d="M570 300 Q440 360 300 300 Q440 240 570 300 Z" fill="rgba(183,28,28,0.08)"/>
+        <circle cx="300" cy="300" r="50" fill="rgba(183,28,28,0.2)"/>
       </g>
     </svg>
 
-    <div class="section-title">
+    <div class="section-title scroll-reveal">
       <h2 id="txtLombaTitle">Cabang Perlombaan</h2>
       <p id="txtLombaSub">Pilih kategori perlombaan dan daftarkan tim terbaikmu</p>
     </div>
 
     <div class="grid-lomba">
-      <div class="card-lomba">
+      <div class="card-lomba scroll-reveal">
         <span class="badge-lomba">ROBOTICS COMPETITION</span>
         <h3 style="color: var(--logix-merah); margin-bottom: 10px;">🤖 Line Follower Robot</h3>
         <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Kompetisi merancang robot otonom navigasi garis lintasan tercepat dan paling presisi.</p>
@@ -388,7 +414,7 @@
         <button class="btn btn-merah" style="margin-left: 8px;" onclick="bukaFormMultiStep('Line Follower Robot')">Daftar (Rp 200rb)</button>
       </div>
 
-      <div class="card-lomba">
+      <div class="card-lomba scroll-reveal">
         <span class="badge-lomba">E-SPORT TOURNAMENT</span>
         <h3 style="color: var(--logix-merah); margin-bottom: 10px;">🎮 Mobile Legends: Bang Bang</h3>
         <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Turnamen Mobile Legends pertempuran tim 5v5 di Land of Dawn memperebutkan gelar Juara LOGIX 2026.</p>
@@ -398,54 +424,54 @@
     </div>
   </section>
 
-  <!-- FAQ (PERTANYAAN YANG SERING DITANYAKAN) -->
+  <!-- FAQ (EFEK SCROLL SHAKE REVEAL) -->
   <section id="faq" class="section">
-    <div class="section-title">
+    <div class="section-title scroll-reveal">
       <h2>FAQ (Pertanyaan Umum)</h2>
       <p>Cari jawaban seputar teknis perlombaan LOGIX 2026</p>
     </div>
 
-    <div class="faq-search-box">
+    <div class="faq-search-box scroll-reveal">
       <input type="text" id="faqSearchInput" placeholder="🔍 Cari pertanyaan (contoh: pencahayaan, kamera, tim)..." onkeyup="filterFAQ()">
     </div>
 
     <div style="max-width: 750px; margin: 0 auto;" id="faqContainer">
-      <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-item scroll-reveal" onclick="toggleFAQ(this)">
         <div class="faq-question"><span>🤖 Bagaimana kondisi pencahayaan arena Line Follower?</span><span>+</span></div>
         <div class="faq-answer">Pencahayaan arena menggunakan standar indoor room lighting. Namun, setiap peserta disarankan menyiapkan modul sensor dengan kalibrasi otomatis/penutup cahaya mandiri.</div>
       </div>
-      <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-item scroll-reveal" onclick="toggleFAQ(this)">
         <div class="faq-question"><span>📷 Apakah robot Line Follower boleh memakai bantuan kamera?</span><span>+</span></div>
         <div class="faq-answer">Boleh! Robot bersifat bebas mikrokontroler & sensor (termasuk sensor photodiode, LDR, maupun camera vision), selama robot berjalan otonom tanpa kendali jarak jauh (remote control).</div>
       </div>
-      <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-item scroll-reveal" onclick="toggleFAQ(this)">
         <div class="faq-question"><span>🎮 Apakah anggota tim Mobile Legends boleh dari sekolah/kampus berbeda?</span><span>+</span></div>
         <div class="faq-answer">Boleh. Kategori E-Sport MLBB memperbolehkan gabungan pemain lintas instansi selama ketua tim terdaftar secara resmi.</div>
       </div>
-      <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-item scroll-reveal" onclick="toggleFAQ(this)">
         <div class="faq-question"><span>💳 Bagaimana jika bukti bayar yang di-upload salah/buram?</span><span>+</span></div>
         <div class="faq-answer">Admin akan mengonfirmasi ulang via WhatsApp terdaftar untuk verifikasi ulang bukti transfer manual.</div>
       </div>
     </div>
   </section>
 
-  <!-- GALERI DOKUMENTASI -->
-  <section id="galeri" class="section" style="background: rgba(255,255,255,0.7);">
-    <div class="section-title">
+  <!-- GALERI DOKUMENTASI (EFEK SCROLL SHAKE REVEAL) -->
+  <section id="galeri" class="section">
+    <div class="section-title scroll-reveal">
       <h2>GALERI LOGIX APP</h2>
       <p>Dokumentasi keseruan dan momen terbaik kompetisi</p>
     </div>
 
     <div class="gallery-grid">
-      <div class="gallery-card">
+      <div class="gallery-card scroll-reveal">
         <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80" alt="Line Follower Robot Arena">
         <div class="gallery-overlay">🤖 Line Follower Arena Competition</div>
       </div>
-      <div class="gallery-card">
+      <div class="gallery-card scroll-reveal">
         <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="E-Sport MLBB Tournament">
         <div class="gallery-overlay">🎮 Mobile Legends Tournament Stage</div>
       </div>
-      <div class="gallery-card">
+      <div class="gallery-card scroll-reveal">
         <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80" alt="Keluarga HEXA & Panitia">
         <div class="gallery-overlay">👥 Kolaborasi Komunitas HEXA APP</div>
       </div>
@@ -506,7 +532,7 @@
     </div>
   </div>
 
-  <!-- MODAL MULTI-STEP ARENA REGISTRATION (LANGKAH 1/4 -> 2/4 -> 3/4 -> 4/4) -->
+  <!-- MODAL MULTI-STEP ARENA REGISTRATION -->
   <div id="modalMultiStep" class="modal-overlay">
     <div class="modal-box">
       <span class="close-btn" onclick="closeModal('modalMultiStep')">&times;</span>
@@ -529,7 +555,7 @@
 
       <form id="formMultiStep" onsubmit="handleFinalSubmit(event)">
         
-        <!-- LANGKAH 1: PILIH DIVISI & TINGKAT -->
+        <!-- LANGKAH 1 -->
         <div class="step-content active" id="step1">
           <div class="form-group">
             <label>Cabang Perlombaan</label>
@@ -552,7 +578,7 @@
           </div>
         </div>
 
-        <!-- LANGKAH 2: DATA KETUA TIM & TWIBBON -->
+        <!-- LANGKAH 2 -->
         <div class="step-content" id="step2">
           <div class="form-group"><label>Nama Tim / Klub</label><input type="text" id="stepNamaTim" required placeholder="Contoh: LOGIX Robotics APP"></div>
           <div class="form-group"><label>Nama Lengkap Ketua Tim</label><input type="text" id="stepNamaKetua" required placeholder="Nama ketua tim"></div>
@@ -574,7 +600,7 @@
           </div>
         </div>
 
-        <!-- LANGKAH 3: DATA ANGGOTA TIM -->
+        <!-- LANGKAH 3 -->
         <div class="step-content" id="step3">
           <p style="font-size:0.85rem; color:#666; margin-bottom:15px;">*Isikan nama anggota tim Anda (Opsional jika solo player / sesuai kebutuhan tim).</p>
           <div class="form-group"><label>Nama Anggota 1</label><input type="text" id="stepMember1" placeholder="Nama anggota 1 (opsional)"></div>
@@ -587,7 +613,7 @@
           </div>
         </div>
 
-        <!-- LANGKAH 4: PEMBAYARAN & UPLOAD BUKTI TRANSFER -->
+        <!-- LANGKAH 4 -->
         <div class="step-content" id="step4">
           <div style="text-align: center; margin-bottom: 12px;">
             <a href="https://ibb.co.com/TM9dBvmJ" target="_blank" class="btn btn-outline" style="padding: 6px 16px; font-size: 0.8rem;">📷 Lihat QRIS All Payment</a>
@@ -636,6 +662,24 @@
     let userEmailGlobal = "";
     let userWAMetadataGlobal = "";
     let isUserLoggedIn = false;
+
+    // SCRIPT UTAMA UNTUK DETEKSI SCROLL REVEAL SHAKE ANIMATION
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll('.scroll-reveal');
+      const windowHeight = window.innerHeight;
+
+      reveals.forEach(el => {
+        const revealTop = el.getBoundingClientRect().top;
+        const revealPoint = 110;
+
+        if (revealTop < windowHeight - revealPoint) {
+          el.classList.add('revealed');
+        }
+      });
+    }
 
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
