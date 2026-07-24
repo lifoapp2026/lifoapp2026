@@ -14,49 +14,45 @@
       --logix-merah-bright: #E53935;
       --logix-merah-glow: rgba(229, 57, 53, 0.35);
       --logix-putih: #FFFFFF;
-      --logix-bg: #F4F5F7;
-      --logix-card-bg: rgba(255, 255, 255, 0.90);
+      --logix-bg: #F5F3F6;
+      --logix-card-bg: rgba(255, 255, 255, 0.92);
       --text-dark: #1E1E1E;
       --text-muted: #555555;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
     
-    /* BACKGROUND FULL SESUAI GAMBAR BATIK PILIHAN KAMU */
+    /* BACKGROUND FULL BATIK HENNA FLORAL - OPACITY DITEBELIN SANGAT JELAS */
     body {
       background-color: var(--logix-bg);
-      background-image: radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.92) 0%, rgba(240, 242, 245, 0.85) 100%), 
-                        url("data:image/svg+xml,%3Csvg width='600' height='600' viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d0d4dc' stroke-width='1.5' stroke-opacity='0.45'%3E%3Ccircle cx='300' cy='600' r='280'/%3E%3Ccircle cx='300' cy='600' r='220' stroke-dasharray='6 6'/%3E%3Ccircle cx='300' cy='600' r='160'/%3E%3Cpath d='M300 320 Q350 460 300 600 Q250 460 300 320 Z' fill='rgba(255,255,255,0.6)'/%3E%3Cpath d='M20 600 Q160 550 300 600 Q160 650 20 600 Z' fill='rgba(255,255,255,0.6)'/%3E%3Cpath d='M580 600 Q440 550 300 600 Q440 650 580 600 Z' fill='rgba(255,255,255,0.6)'/%3E%3C/g%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: bottom center;
+      background-image: url("data:image/svg+xml,%3Csvg width='180' height='180' viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%238e24aa' stroke-width='1.2' stroke-opacity='0.22'%3E%3Cpath d='M90 0 C105 30, 135 60, 180 90 C135 120, 105 150, 90 180 C75 150, 45 120, 0 90 C45 60, 75 30, 90 0 Z' fill='rgba(183, 28, 28, 0.05)'/%3E%3Ccircle cx='90' cy='90' r='30' stroke-dasharray='3 3'/%3E%3Ccircle cx='90' cy='90' r='12' fill='rgba(183, 28, 28, 0.15)'/%3E%3Cpath d='M0 0 C30 15, 60 45, 90 90 C60 135, 30 165, 0 180 M180 0 C150 15, 120 45, 90 90 C120 135, 150 165, 180 180'/%3E%3C/g%3E%3C/svg%3E");
+      background-repeat: repeat;
       background-attachment: fixed;
-      background-size: cover;
       color: var(--text-dark);
       line-height: 1.6;
       overflow-x: hidden;
     }
 
-    /* ANIMASI PUTARAN MANDALA 50% EDGE */
-    @keyframes rotateEdgeBatik {
-      from { transform: translateX(-50%) rotate(0deg); }
-      to { transform: translateX(-50%) rotate(360deg); }
+    /* ANIMASI ROTASI SPINNER BINTANG RAMADAN */
+    @keyframes slowSpinRight {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     /* ANIMASI GOYANG / POP-UP CARD SAAT SCROLL */
     @keyframes popShake {
-      0% { opacity: 0; transform: translateY(50px) scale(0.92); }
+      0% { opacity: 0; transform: translateY(45px) scale(0.92); }
       60% { opacity: 1; transform: translateY(-8px) scale(1.02); }
       80% { transform: translateY(4px) scale(0.99); }
       100% { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     @keyframes borderGlowPulse {
-      0% { border-color: rgba(183, 28, 28, 0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+      0% { border-color: rgba(183, 28, 28, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
       50% { border-color: rgba(229, 57, 53, 0.8); box-shadow: 0 12px 35px var(--logix-merah-glow); }
-      100% { border-color: rgba(183, 28, 28, 0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+      100% { border-color: rgba(183, 28, 28, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
     }
 
-    /* CLASS KHUSUS UNTUK EFEK GOYANG SAAT DI-SCROLL */
     .scroll-reveal {
       opacity: 0;
       transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -65,31 +61,25 @@
       animation: popShake 0.8s forwards;
     }
 
-    /* DEKORASI MANDALA MUTER SETENGAH DI PINGGIRAN (BOTTOM & TOP EDGE) */
-    .half-rotating-mandala {
+    /* SPINNER BINTANG EMAS DI POJOK KANAN (GAYA RAMADAN) */
+    .spinner-kanan {
       position: absolute;
-      left: 50%;
-      width: 650px;
-      height: 650px;
-      opacity: 0.35;
+      right: -100px;
+      width: 420px;
+      height: 420px;
       pointer-events: none;
       z-index: 1;
-      transform-origin: center center;
+      border-radius: 50%;
+      animation: slowSpinRight 40s linear infinite;
     }
-    .mandala-bottom {
-      bottom: -325px;
-      animation: rotateEdgeBatik 55s linear infinite;
-    }
-    .mandala-top {
-      top: -325px;
-      animation: rotateEdgeBatik 65s linear infinite reverse;
-    }
+    .spinner-hero { top: -40px; }
+    .spinner-lomba { bottom: -80px; }
 
     /* NAVBAR & DROPDOWN */
     nav {
-      background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(14px);
       padding: 16px 8%; display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 2px solid #EAEAEA; position: sticky; top: 0; z-index: 100;
+      border-bottom: 2px solid #E5E5E5; position: sticky; top: 0; z-index: 100;
       box-shadow: 0 4px 20px rgba(0,0,0,0.03);
     }
     .brand { font-size: 1.45rem; font-weight: 900; color: var(--logix-merah); letter-spacing: 1.5px; text-decoration: none; }
@@ -149,7 +139,7 @@
       box-shadow: 0 8px 25px rgba(229, 57, 53, 0.4);
     }
     .btn-outline {
-      background: rgba(255, 255, 255, 0.9); border: 2px solid var(--logix-merah); color: var(--logix-merah);
+      background: rgba(255, 255, 255, 0.95); border: 2px solid var(--logix-merah); color: var(--logix-merah);
     }
     .btn-outline:hover { background: #FFEBEE; transform: translateY(-2px); }
     .btn-drive { background: #0F9D58; color: white; display: block; text-align: center; margin-top: 12px; }
@@ -160,7 +150,7 @@
     .section-title h2 { font-size: 2.1rem; color: var(--logix-merah); font-weight: 900; }
     .section-title p { color: var(--text-muted); font-size: 0.95rem; }
 
-    /* BORDER BERGERAK & BINGKAI INTERAKTIF */
+    /* SHOWCASE TENTANG KAMI */
     .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; position: relative; z-index: 2; }
     @media (max-width: 850px) { .showcase-grid { grid-template-columns: 1fr; } }
     
@@ -180,8 +170,8 @@
     
     .about-card, .card-lomba {
       background: var(--logix-card-bg); backdrop-filter: blur(10px);
-      padding: 32px; border-radius: 18px; border: 2px solid rgba(183, 28, 28, 0.2);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: all 0.35s ease;
+      padding: 32px; border-radius: 18px; border: 2px solid rgba(183, 28, 28, 0.25);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06); transition: all 0.35s ease;
     }
     .card-lomba:hover {
       transform: translateY(-10px) scale(1.02); border-color: var(--logix-merah-bright);
@@ -203,7 +193,7 @@
     .faq-search-box input:focus { border-color: var(--logix-merah); box-shadow: 0 0 0 4px var(--logix-merah-glow); }
 
     .faq-item {
-      background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(8px); border: 2px solid rgba(183, 28, 28, 0.15); border-radius: 14px; margin-bottom: 14px;
+      background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(8px); border: 2px solid rgba(183, 28, 28, 0.18); border-radius: 14px; margin-bottom: 14px;
       overflow: hidden; transition: 0.3s; position: relative; z-index: 2;
     }
     .faq-item:hover { border-color: var(--logix-merah-bright); }
@@ -217,11 +207,11 @@
     .faq-item.active .faq-answer { display: block; }
     .faq-item.active { border-color: var(--logix-merah-bright); background: #FFFAFA; }
 
-    /* GALLERY GRID WITH BORDER HOVER SHAKE */
+    /* GALLERY GRID */
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; position: relative; z-index: 2; }
     .gallery-card {
       position: relative; border-radius: 16px; overflow: hidden; height: 220px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.4s ease; border: 3px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.4s ease; border: 3px solid rgba(255, 255, 255, 0.9);
     }
     .gallery-card:hover {
       transform: scale(1.04) rotate(1deg); border-color: var(--logix-merah);
@@ -337,19 +327,16 @@
     </div>
   </nav>
 
-  <!-- HERO SECTION -->
+  <!-- HERO SECTION CONTAINS SPINNER BINTANG RAMADAN DI POJOK KANAN -->
   <section class="hero">
-    <!-- SVG HALF MANDALA DENGAN ANIMASI ROTATE -->
-    <svg class="half-rotating-mandala mandala-top" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-      <g fill="none" stroke="#B71C1C" stroke-width="2.5">
-        <circle cx="300" cy="300" r="280" stroke-dasharray="12 8"/>
-        <circle cx="300" cy="300" r="220"/>
-        <circle cx="300" cy="300" r="150" stroke-dasharray="6 4"/>
-        <path d="M300 20 Q370 160 300 300 Q230 160 300 20 Z" fill="rgba(183,28,28,0.1)"/>
-        <path d="M300 580 Q370 440 300 300 Q230 440 300 580 Z" fill="rgba(183,28,28,0.1)"/>
-        <path d="M20 300 Q160 370 300 300 Q160 230 20 300 Z" fill="rgba(183,28,28,0.1)"/>
-        <path d="M580 300 Q440 370 300 300 Q440 230 580 300 Z" fill="rgba(183,28,28,0.1)"/>
-        <circle cx="300" cy="300" r="60" fill="rgba(229,57,53,0.2)"/>
+    <!-- SVG BINTANG MANDALA EMAS SPINNER POJOK KANAN -->
+    <svg class="spinner-kanan spinner-hero" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#D4AF37" stroke-width="3.5">
+        <!-- Bintang 8 Sudut Khas Ramadan Gambar 2 -->
+        <polygon points="250,20 300,180 480,250 300,320 250,480 200,320 20,250 200,180" fill="rgba(212, 175, 55, 0.12)" stroke="#B71C1C" stroke-width="4"/>
+        <polygon points="250,70 320,180 430,250 320,320 250,430 180,320 70,250 180,180" fill="rgba(183, 28, 28, 0.08)"/>
+        <circle cx="250" cy="250" r="110" stroke="#D4AF37" stroke-width="2.5" stroke-dasharray="8 6"/>
+        <circle cx="250" cy="250" r="60" fill="#B71C1C"/>
       </g>
     </svg>
 
@@ -385,18 +372,14 @@
     </div>
   </section>
 
-  <!-- PERLOMBAAN (EFEK SCROLL SHAKE REVEAL) -->
+  <!-- PERLOMBAAN CONTAINS SECOND SPINNER POJOK KANAN -->
   <section id="lomba" class="section">
-    <!-- SVG HALF MANDALA KEDUA -->
-    <svg class="half-rotating-mandala mandala-bottom" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-      <g fill="none" stroke="#B71C1C" stroke-width="2.5">
-        <circle cx="300" cy="300" r="270" stroke-dasharray="10 8"/>
-        <circle cx="300" cy="300" r="210"/>
-        <path d="M300 30 Q360 160 300 300 Q240 160 300 30 Z" fill="rgba(183,28,28,0.08)"/>
-        <path d="M300 570 Q360 440 300 300 Q240 440 300 570 Z" fill="rgba(183,28,28,0.08)"/>
-        <path d="M30 300 Q160 360 300 300 Q160 240 30 300 Z" fill="rgba(183,28,28,0.08)"/>
-        <path d="M570 300 Q440 360 300 300 Q440 240 570 300 Z" fill="rgba(183,28,28,0.08)"/>
-        <circle cx="300" cy="300" r="50" fill="rgba(183,28,28,0.2)"/>
+    <!-- SVG SPINNER KEDUA POJOK KANAN BAWAH -->
+    <svg class="spinner-kanan spinner-lomba" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#D4AF37" stroke-width="3">
+        <polygon points="250,20 300,180 480,250 300,320 250,480 200,320 20,250 200,180" fill="rgba(183, 28, 28, 0.1)" stroke="#B71C1C" stroke-width="3"/>
+        <circle cx="250" cy="250" r="100" stroke="#D4AF37" stroke-dasharray="6 6"/>
+        <circle cx="250" cy="250" r="45" fill="#E53935"/>
       </g>
     </svg>
 
@@ -663,7 +646,7 @@
     let userWAMetadataGlobal = "";
     let isUserLoggedIn = false;
 
-    // SCRIPT UTAMA UNTUK DETEKSI SCROLL REVEAL SHAKE ANIMATION
+    // DETEKSI SCROLL REVEAL SHAKE ANIMATION
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
 
