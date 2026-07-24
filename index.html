@@ -120,6 +120,7 @@
     .btn-merah:hover { background: var(--logix-merah-bright); transform: translateY(-2px); }
     .btn-outline { background: rgba(255, 255, 255, 0.95); border: 2px solid var(--logix-merah); color: var(--logix-merah); }
     .btn-outline:hover { background: #FFEBEE; }
+    .btn-disabled { background: #E0E0E0; border: 2px solid #CCC; color: #888; cursor: not-allowed; }
     .btn-drive { background: #0F9D58; color: white; display: block; text-align: center; margin-top: 12px; }
 
     /* SECTIONS */
@@ -135,9 +136,11 @@
 
     .grid-lomba { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; position: relative; z-index: 2; }
     .card-lomba { background: var(--logix-card-bg); backdrop-filter: blur(10px); padding: 32px; border-radius: 18px; border: 2px solid rgba(183, 28, 28, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.06); transition: all 0.3s ease; scroll-margin-top: 110px; }
+    .card-lomba.soon-card { border-color: #DDD; background: rgba(245, 245, 248, 0.85); }
     .badge-lomba { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 800; background: #FFEBEE; color: var(--logix-merah); margin-bottom: 15px; }
+    .badge-soon { background: #EEE; color: #777; }
 
-    /* FIX FAQ SEARCH BOX FULL WIDTH (TIDAK MENCIUT) */
+    /* FAQ SEARCH BOX FULL WIDTH */
     .faq-search-box {
       width: 100%;
       max-width: 750px;
@@ -185,16 +188,16 @@
     footer {
       background: #0B0B0E; color: #CCCCCC; padding: 60px 8% 30px; font-size: 0.88rem; border-top: 2px solid #222; position: relative; z-index: 2;
     }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 40px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.2fr 1.5fr; gap: 40px; margin-bottom: 40px; }
     .footer-brand h3 { color: var(--logix-merah-bright); font-size: 1.5rem; font-weight: 900; margin-bottom: 12px; }
     .footer-brand p { color: #999; line-height: 1.6; font-size: 0.85rem; }
     .footer-title { color: #FFF; font-weight: 800; font-size: 0.95rem; margin-bottom: 15px; letter-spacing: 0.5px; }
     .footer-links { list-style: none; }
     .footer-links li { margin-bottom: 8px; }
-    .footer-links a { color: #AAA; text-decoration: none; transition: 0.2s; font-size: 0.85rem; }
+    .footer-links a { color: #AAA; text-decoration: none; transition: 0.2s; font-size: 0.85rem; cursor: pointer; }
     .footer-links a:hover { color: var(--logix-merah-bright); }
     .social-icons { display: flex; gap: 12px; margin-top: 10px; }
-    .social-icon-btn { width: 36px; height: 36px; border-radius: 50%; background: #1E1E24; display: flex; align-items: center; justify-content: center; color: #FFF; text-decoration: none; font-size: 1.1rem; transition: 0.3s; }
+    .social-icon-btn { width: 38px; height: 38px; border-radius: 50%; background: #1E1E24; display: flex; align-items: center; justify-content: center; color: #FFF; text-decoration: none; font-size: 1.1rem; transition: 0.3s; }
     .social-icon-btn:hover { background: var(--logix-merah); transform: translateY(-3px); }
     .footer-bottom { text-align: center; border-top: 1px solid #222; padding-top: 20px; color: #666; font-size: 0.8rem; }
 
@@ -241,9 +244,9 @@
         <div class="dropdown-menu">
           <a class="dropdown-item" onclick="focusAndScrollLomba('card-line-follower')">🤖 Line Follower</a>
           <a class="dropdown-item" onclick="focusAndScrollLomba('card-mobile-legends')">🎮 Mobile Legends</a>
-          <a class="dropdown-item" style="opacity:0.6;">🌐 IoT Competition <span class="badge-cs">Soon</span></a>
-          <a class="dropdown-item" style="opacity:0.6;">📦 Transporter Bot <span class="badge-cs">Soon</span></a>
-          <a class="dropdown-item" style="opacity:0.6;">⚽ SoccerBot <span class="badge-cs">Soon</span></a>
+          <a class="dropdown-item" onclick="focusAndScrollLomba('card-iot')">🌐 IoT Competition <span class="badge-cs">Soon</span></a>
+          <a class="dropdown-item" onclick="focusAndScrollLomba('card-transporter')">📦 Transporter Bot <span class="badge-cs">Soon</span></a>
+          <a class="dropdown-item" onclick="focusAndScrollLomba('card-soccerbot')">⚽ SoccerBot <span class="badge-cs">Soon</span></a>
         </div>
       </li>
       <li class="nav-item"><a class="nav-link" onclick="scrollToSection('faq')" data-id="FAQ" data-en="FAQ">FAQ</a></li>
@@ -333,6 +336,7 @@
     </div>
 
     <div class="grid-lomba">
+      <!-- ACTIVE COMPETITION 1 -->
       <div class="card-lomba scroll-reveal" id="card-line-follower">
         <span class="badge-lomba">ROBOTICS COMPETITION</span>
         <h3 style="color: var(--logix-merah); margin-bottom: 10px;">🤖 Line Follower Robot</h3>
@@ -341,12 +345,40 @@
         <button class="btn btn-merah" style="margin-left: 8px;" onclick="bukaFormMultiStep('Line Follower Robot')" data-id="Daftar (Rp 200rb)" data-en="Register ($13 / Rp 200k)">Daftar (Rp 200rb)</button>
       </div>
 
+      <!-- ACTIVE COMPETITION 2 -->
       <div class="card-lomba scroll-reveal" id="card-mobile-legends">
         <span class="badge-lomba">E-SPORT TOURNAMENT</span>
         <h3 style="color: var(--logix-merah); margin-bottom: 10px;">🎮 Mobile Legends: Bang Bang</h3>
         <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;" data-id="Turnamen Mobile Legends pertempuran tim 5v5 di Land of Dawn memperebutkan gelar Juara LOGIX 2026." data-en="Mobile Legends 5v5 team tournament in Land of Dawn fighting for the LOGIX 2026 Championship title.">Turnamen Mobile Legends pertempuran tim 5v5 di Land of Dawn memperebutkan gelar Juara LOGIX 2026.</p>
         <button class="btn btn-outline" onclick="openDetailLomba('Mobile Legends: Bang Bang')" data-id="Guidebook" data-en="Guidebook">Guidebook</button>
         <button class="btn btn-merah" style="margin-left: 8px;" onclick="bukaFormMultiStep('Mobile Legends: Bang Bang')" data-id="Daftar (Rp 150rb)" data-en="Register ($10 / Rp 150k)">Daftar (Rp 150rb)</button>
+      </div>
+
+      <!-- COMING SOON 1: IoT -->
+      <div class="card-lomba soon-card scroll-reveal" id="card-iot">
+        <span class="badge-lomba badge-soon">SMART TECH (SOON)</span>
+        <h3 style="color: #666; margin-bottom: 10px;">🌐 IoT Competition</h3>
+        <p style="color: #888; font-size: 0.9rem; margin-bottom: 20px;" data-id="Ajang inovasi solusi perangkat keras terintegrasi sistem Internet of Things cerdas." data-en="Innovation challenge for smart integrated Internet of Things hardware solutions.">Ajang inovasi solusi perangkat keras terintegrasi sistem Internet of Things cerdas.</p>
+        <button class="btn btn-disabled" onclick="showSoonAlert('IoT Competition')">Guidebook (Soon)</button>
+        <button class="btn btn-disabled" style="margin-left: 8px;" onclick="showSoonAlert('IoT Competition')">Coming Soon</button>
+      </div>
+
+      <!-- COMING SOON 2: TRANSPORTER -->
+      <div class="card-lomba soon-card scroll-reveal" id="card-transporter">
+        <span class="badge-lomba badge-soon">LOGISTICS BOT (SOON)</span>
+        <h3 style="color: #666; margin-bottom: 10px;">📦 Transporter Bot</h3>
+        <p style="color: #888; font-size: 0.9rem; margin-bottom: 20px;" data-id="Tantangan robotik otomasi simulasi pemindahan logistik barang dengan rintangan dinamis." data-en="Robotics automation challenge simulating goods logistics transfer under dynamic obstacles.">Tantangan robotik otomasi simulasi pemindahan logistik barang dengan rintangan dinamis.</p>
+        <button class="btn btn-disabled" onclick="showSoonAlert('Transporter Bot')">Guidebook (Soon)</button>
+        <button class="btn btn-disabled" style="margin-left: 8px;" onclick="showSoonAlert('Transporter Bot')">Coming Soon</button>
+      </div>
+
+      <!-- COMING SOON 3: SOCCERBOT -->
+      <div class="card-lomba soon-card scroll-reveal" id="card-soccerbot">
+        <span class="badge-lomba badge-soon">ROBOTIC SPORT (SOON)</span>
+        <h3 style="color: #666; margin-bottom: 10px;">⚽ SoccerBot</h3>
+        <p style="color: #888; font-size: 0.9rem; margin-bottom: 20px;" data-id="Kompetisi sepak bola robotik adu kecepatan, manuver giring bola, dan ketepatan tendangan." data-en="Robotic soccer match testing speed, dribbling maneuvers, and shooting precision.">Kompetisi sepak bola robotik adu kecepatan, manuver giring bola, dan ketepatan tendangan.</p>
+        <button class="btn btn-disabled" onclick="showSoonAlert('SoccerBot')">Guidebook (Soon)</button>
+        <button class="btn btn-disabled" style="margin-left: 8px;" onclick="showSoonAlert('SoccerBot')">Coming Soon</button>
       </div>
     </div>
   </section>
@@ -358,12 +390,10 @@
       <p id="txtFaqSub" data-id="Cari jawaban seputar teknis perlombaan LOGIX 2026 (Scroll di dalam box)" data-en="Find answers regarding technical rules of LOGIX 2026 (Scroll inside box)">Cari jawaban seputar teknis perlombaan LOGIX 2026 (Scroll di dalam box)</p>
     </div>
 
-    <!-- SEARCH BOX DIPERBAIKI FULL WIDTH -->
     <div class="faq-search-box scroll-reveal">
       <input type="text" id="faqSearchInput" placeholder="🔍 Cari pertanyaan (contoh: sensor, skin, twibbon, tim)..." onkeyup="filterFAQ()">
     </div>
 
-    <!-- INTERNAL SCROLL BOX KHUSUS PERTANYAAN SLIDE 4 -->
     <div class="faq-scroll-box scroll-reveal" id="faqContainer">
       <div class="faq-item" onclick="toggleFAQ(this)">
         <div class="faq-question"><span>🤖 Bagaimana kondisi pencahayaan arena Line Follower?</span><span>+</span></div>
@@ -438,18 +468,19 @@
         <ul class="footer-links">
           <li><a onclick="focusAndScrollLomba('card-line-follower')">Line Follower Robot</a></li>
           <li><a onclick="focusAndScrollLomba('card-mobile-legends')">Mobile Legends: Bang Bang</a></li>
-          <li><a style="opacity:0.5;">IoT Competition (Soon)</a></li>
-          <li><a style="opacity:0.5;">Transporter Bot (Soon)</a></li>
+          <li><a onclick="focusAndScrollLomba('card-iot')">IoT Competition (Soon)</a></li>
+          <li><a onclick="focusAndScrollLomba('card-transporter')">Transporter Bot (Soon)</a></li>
+          <li><a onclick="focusAndScrollLomba('card-soccerbot')">SoccerBot (Soon)</a></li>
         </ul>
       </div>
 
       <div>
         <div class="footer-title" data-id="MEDIA SOSIAL" data-en="SOCIAL MEDIA">MEDIA SOSIAL</div>
         <div class="social-icons">
-          <a href="#" class="social-icon-btn" title="YouTube">▶</a>
-          <a href="#" class="social-icon-btn" title="TikTok">🎵</a>
-          <a href="#" class="social-icon-btn" title="Instagram">📷</a>
-          <a href="#" class="social-icon-btn" title="LinkedIn">💼</a>
+          <a href="https://youtube.com" target="_blank" class="social-icon-btn" title="YouTube">▶</a>
+          <a href="https://tiktok.com" target="_blank" class="social-icon-btn" title="TikTok">🎵</a>
+          <a href="https://instagram.com" target="_blank" class="social-icon-btn" title="Instagram">📷</a>
+          <a href="https://linktr.ee" target="_blank" class="social-icon-btn" title="Linktree">🌳</a>
         </div>
       </div>
 
@@ -629,6 +660,10 @@
         targetCard.classList.add('focused-glow');
         setTimeout(() => { targetCard.classList.remove('focused-glow'); }, 800);
       }
+    }
+
+    function showSoonAlert(namaLomba) {
+      alert(`⏳ Segera Hadir!\n\nPendaftaran untuk cabang perlombaan ${namaLomba} akan dibuka pada tahap selanjutnya. Pantau terus info resminya di LOGIX APP!`);
     }
 
     // FUNCTION SWITCH BAHASA REAL ID / EN FULL DOM
