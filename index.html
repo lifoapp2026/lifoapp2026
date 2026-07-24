@@ -54,6 +54,8 @@
     .btn-outline:hover { background: #FFEBEE; }
     .btn-drive { background: #0F9D58; color: white; display: block; text-align: center; margin-top: 12px; }
     .btn-drive:hover { background: #0B8043; }
+    .btn-wa { background: #25D366; color: white; display: block; text-align: center; margin-top: 15px; font-size: 1rem; }
+    .btn-wa:hover { background: #128C7E; }
 
     /* SECTIONS */
     .section { padding: 70px 8%; }
@@ -84,7 +86,7 @@
       z-index: 1000; padding: 20px;
     }
     .modal-box {
-      background: white; border-radius: 16px; width: 100%; max-width: 480px;
+      background: white; border-radius: 16px; width: 100%; max-width: 500px;
       padding: 35px; position: relative; border-top: 8px solid var(--app-merah);
       box-shadow: 0 10px 30px rgba(0,0,0,0.2); animation: pop 0.3s ease; max-height: 90vh; overflow-y: auto;
     }
@@ -102,6 +104,18 @@
 
     .switch-link { text-align: center; margin-top: 15px; font-size: 0.88rem; color: #666; }
     .switch-link a { color: var(--app-merah); font-weight: bold; text-decoration: none; cursor: pointer; }
+
+    /* CARD PEMBAYARAN */
+    .payment-box {
+      background: #F9F9F9; border: 1px solid #E0E0E0; border-radius: 10px; padding: 15px; margin-bottom: 15px;
+    }
+    .payment-item {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+      padding-bottom: 8px; border-bottom: 1px dashed #DDD;
+    }
+    .payment-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .pay-title { font-weight: bold; color: #333; font-size: 0.9rem; }
+    .pay-detail { font-size: 0.9rem; color: var(--app-merah); font-weight: bold; text-align: right; }
 
     footer { background: #151515; color: white; text-align: center; padding: 25px; font-size: 0.85rem; }
   </style>
@@ -261,8 +275,8 @@
         <div class="form-group">
           <label>Cabang Lomba</label>
           <select id="pilihLomba" required>
-            <option value="Line Follower Robot">🤖 Line Follower Robot</option>
-            <option value="Mobile Legends: Bang Bang">🎮 Mobile Legends: Bang Bang</option>
+            <option value="Line Follower Robot">🤖 Line Follower Robot (Rp 100.000)</option>
+            <option value="Mobile Legends: Bang Bang">🎮 Mobile Legends: Bang Bang (Rp 50.000)</option>
           </select>
         </div>
         <div class="form-group">
@@ -273,8 +287,59 @@
           <label>Asal Kampus / Sekolah</label>
           <input type="text" id="institusi" required placeholder="Politeknik APP Jakarta">
         </div>
-        <button type="submit" id="btnDaftarLomba" class="btn btn-merah" style="width: 100%;">Daftar Lomba Sekarang</button>
+        <button type="submit" id="btnDaftarLomba" class="btn btn-merah" style="width: 100%;">Lanjut ke Pembayaran ➔</button>
       </form>
+    </div>
+  </div>
+
+  <!-- MODAL 5: POP-UP INSTRUCTION PEMBAYARAN & KONFIRMASI WA -->
+  <div id="modalBayar" class="modal-overlay">
+    <div class="modal-box">
+      <span class="close-btn" onclick="closeModal('modalBayar')">&times;</span>
+      <h3 style="color: var(--app-merah); margin-bottom: 5px; text-align: center;">Pembayaran Registrasi</h3>
+      <p style="font-size: 0.85rem; color: #666; text-align: center; margin-bottom: 15px;">
+        Pembayaran untuk tim: <b id="payNamaTimDisplay" style="color: #333;"></b>
+      </p>
+
+      <!-- LINK QRIS -->
+      <div style="text-align: center; margin-bottom: 15px;">
+        <p style="font-weight: bold; font-size: 0.85rem; margin-bottom: 6px;">Atau Klik Link QRIS Resmi Kami:</p>
+        <a href="https://ibb.co.com/TM9dBvmJ" target="_blank" class="btn btn-outline" style="padding: 6px 16px; font-size: 0.85rem;">
+          📷 Buka QRIS All Payment
+        </a>
+      </div>
+
+      <!-- NO REK / EWALLET SULTAN ARASY -->
+      <div class="payment-box">
+        <div class="payment-item">
+          <span class="pay-title">🔵 Bank BCA</span>
+          <span class="pay-detail">6611239707<br><small style="color:#666;">a.n. Muhamad Sultan Arasy</small></span>
+        </div>
+        <div class="payment-item">
+          <span class="pay-title">🟢 GoPay</span>
+          <span class="pay-detail">085157663345<br><small style="color:#666;">a.n. Muhamad Sultan Arasy</small></span>
+        </div>
+        <div class="payment-item">
+          <span class="pay-title">🔵 DANA</span>
+          <span class="pay-detail">085157663345<br><small style="color:#666;">a.n. Muhamad Sultan Arasy</small></span>
+        </div>
+        <div class="payment-item">
+          <span class="pay-title">💜 OVO</span>
+          <span class="pay-detail">085179910624<br><small style="color:#666;">a.n. Muhamad Sultan Arasy</small></span>
+        </div>
+        <div class="payment-item">
+          <span class="pay-title">💰 Total Biaya</span>
+          <span class="pay-detail" id="payNominalDisplay" style="font-size: 1.1rem; color: var(--app-merah);">Rp 0</span>
+        </div>
+      </div>
+
+      <p style="font-size: 0.8rem; color: #555; text-align: center; line-height: 1.4;">
+        *Silakan simpan struk/screenshot pembayaran Anda, lalu kirimkan ke WhatsApp Admin di bawah ini.
+      </p>
+
+      <a id="btnKonfirmasiWA" href="#" target="_blank" class="btn btn-wa">
+        💬 Kirim Bukti Pembayaran via WA
+      </a>
     </div>
   </div>
 
@@ -289,7 +354,8 @@
 
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // LINK DRIVE GUIDEBOOK RESMI KAMU
+    // NOMOR WA ADMIN
+    const NO_WA_ADMIN = "6285157663345"; 
     const LINK_DRIVE_LINE_FOLLOWER = "https://drive.google.com/drive/folders/1wv6X_JyJ0_euOrOTc4d-GLzHMwJrQVc5?usp=drive_link"; 
     const LINK_DRIVE_MOBILE_LEGENDS = "https://drive.google.com/drive/folders/1vP2oerj8ezRzfVk1uNBwDKELVjy1X5MM?usp=sharing";
 
@@ -314,6 +380,7 @@
         deskripsi.innerHTML = `
           <b>Deskripsi Lomba:</b><br>
           Line Follower Robot adalah kompetisi rancang bangun robot otonom yang bertugas menyusuri garis lintasan secara otomatis hingga garis finish.<br><br>
+          <b>Biaya Pendaftaran:</b> Rp 100.000 / Tim<br>
           <b>Ketentuan Tim:</b>
           <ul>
             <li>• 1 Tim terdiri dari 2 - 3 Anggota.</li>
@@ -328,6 +395,7 @@
         deskripsi.innerHTML = `
           <b>Deskripsi Lomba:</b><br>
           Turnamen E-Sport resmi LIFO APP 2026 dengan sistem Draft Pick Custom Room 5v5 di Land of Dawn.<br><br>
+          <b>Biaya Pendaftaran:</b> Rp 50.000 / Tim<br>
           <b>Ketentuan Tim:</b>
           <ul>
             <li>• 1 Tim terdiri dari 5 Pemain Utama + 1 Cadangan.</li>
@@ -430,7 +498,7 @@
       }
     }
 
-    // 3. SIMPAN PENDAFTARAN LOMBA KE TABEL SUPABASE
+    // 3. SIMPAN PENDAFTARAN LOMBA & TAMPILKAN POP-UP PEMBAYARAN
     async function handleDaftarLomba(e) {
       e.preventDefault();
       const btn = document.getElementById('btnDaftarLomba');
@@ -453,13 +521,29 @@
           }
         ]);
 
-      btn.innerText = "Daftar Lomba Sekarang"; btn.disabled = false;
+      btn.innerText = "Lanjut ke Pembayaran ➔"; btn.disabled = false;
 
       if (error) {
         alert("Gagal mendaftar: " + error.message);
       } else {
-        alert("Selamat! Pendaftaran lomba tim " + namaTim + " berhasil disimpan.");
         closeModal('modalLomba');
+
+        // HITUNG NOMINAL BIAYA
+        let nominal = "Rp 100.000";
+        if(cabangLomba.includes("Mobile Legends")) {
+          nominal = "Rp 50.000";
+        }
+
+        // TAMPILKAN POPUP PEMBAYARAN
+        document.getElementById('payNamaTimDisplay').innerText = namaTim;
+        document.getElementById('payNominalDisplay').innerText = nominal;
+
+        // BIKIN LINK OTOMATIS KONFIRMASI KE WHATSAPP SULTAN ARASY
+        const pesanWA = `Halo Admin LIFO 2026,%0A%0ANama Tim: *${namaTim}*%0ACabang Lomba: *${cabangLomba}*%0AInstitusi: *${institusi}*%0AEmail: *${email}*%0A%0ASaya ingin mengonfirmasi & mengirimkan BUKTI PEMBAYARAN pendaftaran lomba sebesar ${nominal}. Terimakasih!`;
+        
+        document.getElementById('btnKonfirmasiWA').href = `https://wa.me/${NO_WA_ADMIN}?text=${pesanWA}`;
+
+        openModal('modalBayar');
       }
     }
   </script>
