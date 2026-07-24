@@ -244,6 +244,23 @@
     </div>
   </div>
 
+  <!-- MODAL RESET PASSWORD (BARU) -->
+  <div id="modalResetPassword" class="modal-overlay">
+    <div class="modal-box">
+      <span class="close-btn" onclick="closeModal('modalResetPassword')">&times;</span>
+      <h3 style="color: var(--app-merah); margin-bottom: 10px; text-align: center;">Buat Kata Sandi Baru</h3>
+      <p style="font-size: 0.85rem; color: #666; text-align: center; margin-bottom: 20px;">Silakan masukkan kata sandi baru Anda di bawah ini.</p>
+      
+      <form onsubmit="handleUpdatePassword(event)">
+        <div class="form-group">
+          <label>Kata Sandi Baru</label>
+          <input type="password" id="newPassword" required placeholder="Masukkan kata sandi baru">
+        </div>
+        <button type="submit" id="btnUpdatePass" class="btn btn-merah" style="width: 100%;">Simpan Kata Sandi Baru</button>
+      </form>
+    </div>
+  </div>
+
   <!-- MODAL 3: DETAIL LOMBA & LINK GUIDEBOOK DRIVE -->
   <div id="modalDetailLomba" class="modal-overlay">
     <div class="modal-box">
@@ -367,6 +384,33 @@
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     function switchModal(fromId, toId) { closeModal(fromId); openModal(toId); }
     function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+
+    // DETEKSI OTOMATIS LINK RESET PASSWORD
+    supabaseClient.auth.onAuthStateChange(async (event, session) => {
+      if (event === "PASSWORD_RECOVERY") {
+        openModal("modalResetPassword");
+      }
+    });
+
+    // SIMPAN PASSWORD BARU
+    async function handleUpdatePassword(e) {
+      e.preventDefault();
+      const newPass = document.getElementById("newPassword").value;
+      const btn = document.getElementById("btnUpdatePass");
+      btn.innerText = "Menyimpan..."; btn.disabled = true;
+
+      const { error } = await supabaseClient.auth.updateUser({ password: newPass });
+
+      btn.innerText = "Simpan Kata Sandi Baru"; btn.disabled = false;
+
+      if (error) {
+        alert("Gagal memperbarui kata sandi: " + error.message);
+      } else {
+        alert("Kata sandi berhasil diperbarui! Silakan login dengan kata sandi baru.");
+        closeModal("modalResetPassword");
+        openModal("modalLogin");
+      }
+    }
 
     // POPUP DETAIL & GUIDEBOOK
     function openDetailLomba(jenisLomba) {
