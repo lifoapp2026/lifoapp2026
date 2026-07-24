@@ -360,8 +360,8 @@
     const LINK_DRIVE_MOBILE_LEGENDS = "https://drive.google.com/drive/folders/1vP2oerj8ezRzfVk1uNBwDKELVjy1X5MM?usp=sharing";
 
     let userEmailGlobal = "";
+    let userWAMetadataGlobal = "";
     let isUserLoggedIn = false;
-    let currentNamaUser = "";
 
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
@@ -426,7 +426,7 @@
     function handleLogout() {
       isUserLoggedIn = false;
       userEmailGlobal = "";
-      currentNamaUser = "";
+      userWAMetadataGlobal = "";
       alert("Anda telah keluar dari akun.");
       document.getElementById('navUserArea').innerHTML = `
         <button class="btn btn-outline" onclick="openModal('modalLogin')">Masuk</button>
@@ -434,7 +434,7 @@
       `;
     }
 
-    // 1. REGISTER SUPABASE AUTH (TERMASUK INPUT NO WA PESERTA)
+    // 1. REGISTER SUPABASE AUTH
     async function handleRegister(e) {
       e.preventDefault();
       const nama = document.getElementById('regNama').value;
@@ -491,6 +491,7 @@
       } else {
         isUserLoggedIn = true;
         userEmailGlobal = email;
+        userWAMetadataGlobal = data.user.user_metadata.whatsapp || "";
         const namaUser = data.user.user_metadata.full_name || email;
         
         closeModal('modalLogin');
@@ -504,7 +505,7 @@
       }
     }
 
-    // 3. SIMPAN PENDAFTARAN LOMBA & TAMPILKAN POP-UP PEMBAYARAN
+    // 3. SIMPAN PENDAFTARAN LOMBA & NO. WA LANGSUNG KE TABEL
     async function handleDaftarLomba(e) {
       e.preventDefault();
       const btn = document.getElementById('btnDaftarLomba');
@@ -523,6 +524,7 @@
             email: email, 
             cabang_lomba: cabangLomba, 
             institusi: institusi, 
+            no_whatsapp: userWAMetadataGlobal, 
             status_pembayaran: 'Belum Bayar' 
           }
         ]);
@@ -534,18 +536,15 @@
       } else {
         closeModal('modalLomba');
 
-        // HITUNG NOMINAL BIAYA
         let nominal = "Rp 100.000";
         if(cabangLomba.includes("Mobile Legends")) {
           nominal = "Rp 50.000";
         }
 
-        // TAMPILKAN POPUP PEMBAYARAN
         document.getElementById('payNamaTimDisplay').innerText = namaTim;
         document.getElementById('payNominalDisplay').innerText = nominal;
 
-        // BIKIN LINK OTOMATIS KONFIRMASI KE WHATSAPP SULTAN ARASY
-        const pesanWA = `Halo Admin LIFO 2026,%0A%0ANama Tim: *${namaTim}*%0ACabang Lomba: *${cabangLomba}*%0AInstitusi: *${institusi}*%0AEmail: *${email}*%0A%0ASaya ingin mengonfirmasi & mengirimkan BUKTI PEMBAYARAN pendaftaran lomba sebesar ${nominal}. Terimakasih!`;
+        const pesanWA = `Halo Admin LIFO 2026,%0A%0ANama Tim: *${namaTim}*%0ACabang Lomba: *${cabangLomba}*%0AInstitusi: *${institusi}*%0AEmail: *${email}*%0ANo. WA: *${userWAMetadataGlobal}*%0A%0ASaya ingin mengonfirmasi & mengirimkan BUKTI PEMBAYARAN pendaftaran lomba sebesar ${nominal}. Terimakasih!`;
         
         document.getElementById('btnKonfirmasiWA').href = `https://wa.me/${NO_WA_ADMIN}?text=${pesanWA}`;
 
