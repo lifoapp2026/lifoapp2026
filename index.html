@@ -14,26 +14,34 @@
       --logix-merah-bright: #E53935;
       --logix-merah-glow: rgba(229, 57, 53, 0.25);
       --logix-putih: #FFFFFF;
-      --logix-bg: #FAFAFC;
-      --logix-card-bg: #FFFFFF;
+      --logix-bg: #F8F9FA;
+      --logix-card-bg: rgba(255, 255, 255, 0.92);
       --text-dark: #1E1E1E;
-      --text-muted: #666666;
+      --text-muted: #555555;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
-    body { background-color: var(--logix-bg); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
-
-    /* ANIMATIONS */
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 0 0 var(--logix-merah-glow); }
-      70% { box-shadow: 0 0 0 12px rgba(229, 57, 53, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0); }
+    
+    /* BACKGROUND BATIK SEAMLESS PATTERN */
+    body {
+      background-color: var(--logix-bg);
+      /* Pattern SVG Batik Transparan */
+      background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 0 C65 20, 80 35, 100 40 C80 45, 65 60, 60 80 C55 60, 40 45, 20 40 C40 35, 55 20, 60 0 Z M60 120 C65 100, 80 85, 100 80 C80 75, 65 60, 60 40 C55 60, 40 75, 20 80 C40 85, 55 100, 60 120 Z' fill='%20b71c1c' fill-opacity='0.04'/%3E%3Cpath d='M0 60 C20 65, 35 80, 40 100 C45 80, 60 65, 80 60 C60 55, 45 40, 40 20 C35 40, 20 55, 0 60 Z' fill='%20b71c1c' fill-opacity='0.03'/%3E%3C/svg%3E");
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    @keyframes floatAnim {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-      100% { transform: translateY(0px); }
+    /* ANIMASI KUNCI: ROTATING BATIK MANDALA */
+    @keyframes rotateBatik {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 var(--logix-merah-glow); }
+      70% { box-shadow: 0 0 0 15px rgba(229, 57, 53, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0); }
     }
 
     @keyframes slideUp {
@@ -41,27 +49,60 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* NAVBAR */
+    /* ELEMEN MANDALA MUTER DI POJOK HALAMAN */
+    .rotating-mandala {
+      position: absolute;
+      width: 480px;
+      height: 480px;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 1;
+      animation: rotateBatik 45s linear infinite;
+    }
+    .mandala-hero { top: -100px; right: -100px; }
+    .mandala-lomba { bottom: -120px; left: -120px; }
+
+    /* NAVBAR & DROPDOWN */
     nav {
-      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-      padding: 18px 8%; display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
+      padding: 16px 8%; display: flex; justify-content: space-between; align-items: center;
       border-bottom: 2px solid #F0F0F5; position: sticky; top: 0; z-index: 100;
       box-shadow: 0 4px 20px rgba(0,0,0,0.03);
     }
-    .brand { font-size: 1.5rem; font-weight: 900; color: var(--logix-merah); letter-spacing: 1.5px; }
+    .brand { font-size: 1.45rem; font-weight: 900; color: var(--logix-merah); letter-spacing: 1.5px; text-decoration: none; }
     .brand span { color: var(--text-dark); }
+
+    .nav-menu { display: flex; align-items: center; gap: 24px; list-style: none; }
+    .nav-item { position: relative; }
+    .nav-link { text-decoration: none; color: var(--text-dark); font-weight: 700; font-size: 0.92rem; cursor: pointer; transition: 0.2s; }
+    .nav-link:hover { color: var(--logix-merah); }
+
+    /* DROPDOWN MENU KOMPETISI */
+    .dropdown-menu {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 12px 0; min-width: 210px;
+      display: none; flex-direction: column; z-index: 101; margin-top: 10px;
+      animation: slideUp 0.2s ease;
+    }
+    .nav-item:hover .dropdown-menu { display: flex; }
+    .dropdown-item {
+      padding: 10px 20px; text-decoration: none; color: #333; font-weight: 600; font-size: 0.88rem; transition: 0.2s; display: flex; justify-content: space-between; align-items: center;
+    }
+    .dropdown-item:hover { background: #FFEBEE; color: var(--logix-merah); }
+    .badge-cs { font-size: 0.68rem; padding: 2px 6px; background: #EEE; color: #888; border-radius: 10px; font-weight: bold; }
+
+    /* LANGUAGE SWITCHER */
+    .lang-switcher {
+      display: flex; background: #F0F0F5; border-radius: 20px; padding: 3px; font-weight: 800; font-size: 0.8rem; cursor: pointer;
+    }
+    .lang-btn { padding: 4px 10px; border-radius: 16px; transition: 0.3s; color: #777; }
+    .lang-btn.active { background: var(--logix-merah); color: #FFF; }
 
     /* HERO BANNER */
     .hero {
-      position: relative; background: var(--logix-putih); padding: 90px 8% 80px;
+      position: relative; background: transparent; padding: 90px 8% 80px;
       overflow: hidden; border-bottom: 1px solid #EBEBEB;
-    }
-    .hero::after {
-      content: ""; position: absolute; top: -50px; right: -50px;
-      width: 350px; height: 350px;
-      background: linear-gradient(135deg, var(--logix-merah-bright), var(--logix-merah));
-      transform: rotate(45deg); border-radius: 50px; opacity: 0.88;
-      animation: floatAnim 6s ease-in-out infinite;
     }
     .hero-content { position: relative; z-index: 2; max-width: 680px; animation: slideUp 0.8s ease; }
     .hero-tag {
@@ -69,13 +110,13 @@
       padding: 6px 16px; border-radius: 30px; font-weight: 700; font-size: 0.82rem;
       letter-spacing: 1px; margin-bottom: 15px; border: 1px solid #FFCDD2;
     }
-    .hero h1 { font-size: 3rem; color: var(--text-dark); margin-bottom: 15px; font-weight: 900; line-height: 1.2; }
+    .hero h1 { font-size: 2.9rem; color: var(--text-dark); margin-bottom: 15px; font-weight: 900; line-height: 1.2; }
     .hero h1 span { color: var(--logix-merah); }
 
     /* BUTTONS */
     .btn {
       padding: 13px 30px; border-radius: 10px; font-weight: 800; border: none; cursor: pointer;
-      transition: all 0.3s ease; font-size: 0.95rem; display: inline-block; text-decoration: none;
+      transition: all 0.3s ease; font-size: 0.92rem; display: inline-block; text-decoration: none;
     }
     .btn-merah {
       background: var(--logix-merah); color: white;
@@ -86,29 +127,81 @@
       box-shadow: 0 8px 25px rgba(229, 57, 53, 0.4);
     }
     .btn-outline {
-      background: transparent; border: 2px solid var(--logix-merah); color: var(--logix-merah);
+      background: rgba(255, 255, 255, 0.8); border: 2px solid var(--logix-merah); color: var(--logix-merah);
     }
     .btn-outline:hover { background: #FFEBEE; transform: translateY(-2px); }
     .btn-drive { background: #0F9D58; color: white; display: block; text-align: center; margin-top: 12px; }
 
     /* SECTIONS */
-    .section { padding: 80px 8%; }
-    .section-title { text-align: center; margin-bottom: 50px; }
-    .section-title h2 { font-size: 2.2rem; color: var(--logix-merah); font-weight: 900; }
-    .section-title p { color: var(--text-muted); font-size: 1rem; }
+    .section { padding: 80px 8%; position: relative; }
+    .section-title { text-align: center; margin-bottom: 45px; }
+    .section-title h2 { font-size: 2.1rem; color: var(--logix-merah); font-weight: 900; }
+    .section-title p { color: var(--text-muted); font-size: 0.95rem; }
 
-    .grid-about, .grid-lomba { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; }
+    /* SHOWCASE / TENTANG KAMI */
+    .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; position: relative; z-index: 2; }
+    @media (max-width: 850px) { .showcase-grid { grid-template-columns: 1fr; } }
+    .showcase-img-box {
+      position: relative; border-radius: 20px; overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.12); border: 4px solid #FFF;
+    }
+    .showcase-img-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .showcase-badge {
+      position: absolute; bottom: 20px; left: 20px; background: rgba(0,0,0,0.85);
+      color: #FFF; padding: 10px 18px; border-radius: 12px; backdrop-filter: blur(5px);
+      font-size: 0.85rem; border-left: 4px solid var(--logix-merah-bright);
+    }
+
+    .grid-about, .grid-lomba { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; position: relative; z-index: 2; }
     .about-card, .card-lomba {
-      background: var(--logix-card-bg); padding: 35px; border-radius: 18px;
-      border: 1px solid #EBEBEB; box-shadow: 0 6px 25px rgba(0,0,0,0.03); transition: 0.35s ease;
+      background: var(--logix-card-bg); backdrop-filter: blur(8px);
+      padding: 32px; border-radius: 18px; border: 1px solid rgba(235, 235, 235, 0.8);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.04); transition: 0.35s ease;
     }
     .card-lomba:hover {
       transform: translateY(-8px); border-color: var(--logix-merah-bright);
-      box-shadow: 0 12px 30px var(--logix-merah-glow);
+      box-shadow: 0 14px 35px var(--logix-merah-glow);
     }
     .badge-lomba {
       display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 0.78rem;
       font-weight: 800; background: #FFEBEE; color: var(--logix-merah); margin-bottom: 15px;
+    }
+
+    /* FAQ SEARCH & ACCORDION */
+    .faq-search-box {
+      max-width: 550px; margin: 0 auto 35px; position: relative; z-index: 2;
+    }
+    .faq-search-box input {
+      width: 100%; padding: 14px 22px; border-radius: 30px; border: 2px solid #E0E0E0;
+      outline: none; font-size: 0.95rem; transition: 0.3s; background: rgba(255,255,255,0.9);
+    }
+    .faq-search-box input:focus { border-color: var(--logix-merah); box-shadow: 0 0 0 4px var(--logix-merah-glow); }
+
+    .faq-item {
+      background: rgba(255, 255, 255, 0.95); border: 1px solid #EBEBEB; border-radius: 14px; margin-bottom: 14px;
+      overflow: hidden; transition: 0.3s; position: relative; z-index: 2;
+    }
+    .faq-question {
+      padding: 18px 24px; font-weight: 800; font-size: 0.95rem; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; color: var(--text-dark);
+    }
+    .faq-answer {
+      padding: 0 24px 18px; color: #555; font-size: 0.9rem; line-height: 1.6; display: none;
+    }
+    .faq-item.active .faq-answer { display: block; }
+    .faq-item.active { border-color: var(--logix-merah-bright); background: #FFFAFA; }
+
+    /* GALLERY GRID */
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; position: relative; z-index: 2; }
+    .gallery-card {
+      position: relative; border-radius: 16px; overflow: hidden; height: 220px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.3s; border: 3px solid #FFF;
+    }
+    .gallery-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
+    .gallery-card:hover img { transform: scale(1.08); }
+    .gallery-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 15px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: #FFF; font-size: 0.85rem; font-weight: bold;
     }
 
     /* MODAL MULTI-STEP ARENA */
@@ -160,7 +253,6 @@
     }
     .form-group input:focus, .form-group select:focus { border-color: var(--logix-merah); background: #FFF; box-shadow: 0 0 0 3px var(--logix-merah-glow); }
 
-    /* UPLOAD DRAG & DROP BOX */
     .upload-box {
       border: 2px dashed #CCC; border-radius: 12px; padding: 22px; text-align: center;
       background: #FAFAFC; cursor: pointer; transition: 0.3s; margin-top: 6px;
@@ -168,7 +260,6 @@
     .upload-box:hover { border-color: var(--logix-merah); background: #FFEBEE; }
     .upload-box p { font-size: 0.85rem; color: #666; margin-top: 6px; font-weight: 600; }
 
-    /* CARD PEMBAYARAN */
     .payment-box {
       background: #FFEBEE; border: 1px solid #FFCDD2; border-radius: 12px; padding: 18px; margin-bottom: 18px;
     }
@@ -180,57 +271,112 @@
 
     .btn-group-step { display: flex; justify-content: space-between; margin-top: 30px; gap: 12px; }
 
-    footer { background: #111115; color: #888; text-align: center; padding: 30px; font-size: 0.88rem; border-top: 1px solid #222; }
+    footer { background: #111115; color: #888; text-align: center; padding: 30px; font-size: 0.88rem; border-top: 1px solid #222; position: relative; z-index: 2; }
   </style>
 </head>
 <body>
 
   <!-- NAVBAR -->
   <nav>
-    <div class="brand">LOGIX <span>APP 2026</span></div>
-    <div id="navUserArea">
-      <button class="btn btn-outline" onclick="openModal('modalLogin')">Masuk</button>
-      <button class="btn btn-merah" style="margin-left: 8px;" onclick="openModal('modalRegister')">Daftar</button>
+    <a href="#" class="brand">LOGIX <span>APP 2026</span></a>
+    
+    <ul class="nav-menu">
+      <li class="nav-item"><a class="nav-link" onclick="scrollToSection('tentang')">Tentang Kami</a></li>
+      <li class="nav-item">
+        <a class="nav-link">Kompetisi ▾</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" onclick="bukaFormMultiStep('Line Follower Robot')">🤖 Line Follower</a>
+          <a class="dropdown-item" onclick="bukaFormMultiStep('Mobile Legends: Bang Bang')">🎮 Mobile Legends</a>
+          <a class="dropdown-item" style="opacity:0.6;">🌐 IoT Competition <span class="badge-cs">Soon</span></a>
+          <a class="dropdown-item" style="opacity:0.6;">📦 Transporter Bot <span class="badge-cs">Soon</span></a>
+          <a class="dropdown-item" style="opacity:0.6;">⚽ SoccerBot <span class="badge-cs">Soon</span></a>
+        </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" onclick="scrollToSection('faq')">FAQ</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="scrollToSection('galeri')">Galeri</a></li>
+    </ul>
+
+    <div style="display:flex; align-items:center; gap:12px;">
+      <!-- SWITCH LANGUAGE (ID / EN) -->
+      <div class="lang-switcher">
+        <span class="lang-btn active" id="btnLangID" onclick="setLanguage('id')">ID</span>
+        <span class="lang-btn" id="btnLangEN" onclick="setLanguage('en')">EN</span>
+      </div>
+
+      <div id="navUserArea">
+        <button class="btn btn-outline" onclick="openModal('modalLogin')">Masuk</button>
+        <button class="btn btn-merah" style="margin-left: 6px;" onclick="openModal('modalRegister')">Daftar</button>
+      </div>
     </div>
   </nav>
 
-  <!-- HERO SECTION -->
+  <!-- HERO SECTION CONTAINS ROTATING MANDALA -->
   <section class="hero">
+    <!-- SVG MANDALA HIASAN MUTER -->
+    <svg class="rotating-mandala mandala-hero" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#B71C1C" stroke-width="3">
+        <circle cx="250" cy="250" r="230" stroke-dasharray="8 8"/>
+        <circle cx="250" cy="250" r="180"/>
+        <circle cx="250" cy="250" r="120" stroke-dasharray="4 4"/>
+        <!-- Kelopak Mandala -->
+        <path d="M250 20 Q300 130 250 250 Q200 130 250 20 Z" fill="rgba(183,28,28,0.15)"/>
+        <path d="M250 480 Q300 370 250 250 Q200 370 250 480 Z" fill="rgba(183,28,28,0.15)"/>
+        <path d="M20 250 Q130 300 250 250 Q130 200 20 250 Z" fill="rgba(183,28,28,0.15)"/>
+        <path d="M480 250 Q370 300 250 250 Q370 200 480 250 Z" fill="rgba(183,28,28,0.15)"/>
+        <circle cx="250" cy="250" r="40" fill="#B71C1C"/>
+      </g>
+    </svg>
+
     <div class="hero-content">
       <span class="hero-tag">POLITEKNIK APP JAKARTA</span>
-      <h1>LOGIX FESTIVAL <span>2026</span></h1>
-      <p>Ajang kompetisi Robotika & E-Sport bergengsi berbasis sinergi keahlian lintas prodi Politeknik APP Jakarta untuk melatih ketangkasan, analisis logika, dan strategi digital generasi muda Indonesia.</p>
-      <button class="btn btn-merah" onclick="scrollToSection('lomba')" style="margin-top:10px;">Lihat Perlombaan</button>
-      <button class="btn btn-outline" style="margin-left: 10px;" onclick="scrollToSection('tentang')">Filosofi LOGIX</button>
+      <h1 id="txtHeroTitle">LOGIX FESTIVAL <span>2026</span></h1>
+      <p id="txtHeroDesc">Ajang kompetisi Robotika & E-Sport bergengsi berbasis sinergi keahlian lintas prodi Politeknik APP Jakarta untuk melatih ketangkasan, analisis logika, dan strategi digital generasi muda Indonesia.</p>
+      <button class="btn btn-merah" onclick="scrollToSection('lomba')" style="margin-top:10px;" id="btnHeroLomba">Lihat Perlombaan</button>
+      <button class="btn btn-outline" style="margin-left: 10px;" onclick="scrollToSection('tentang')" id="btnHeroTentang">Filosofi LOGIX</button>
     </div>
   </section>
 
-  <!-- TENTANG LOGIX APP -->
+  <!-- TENTANG LOGIX APP (SHOWCASE PROFIL PRESTASI) -->
   <section id="tentang" class="section">
-    <div class="section-title">
-      <h2>Filosofi & Arti LOGIX APP</h2>
-      <p>Representasi Sinergi 3 Program Studi Politeknik APP Jakarta</p>
-    </div>
-    <div class="grid-about">
-      <div class="about-card">
-        <h3>💡 LOGI (Logic, Strategy & Intelligence)</h3>
-        <p>Integrasi kekuatan 3 Program Studi:<br>
-        • <b>Pemasaran (MPI):</b> Logika strategi digital marketing & branding.<br>
-        • <b>Perdagangan Internasional (PIWAR):</b> Logika diplomasi bisnis & pasar ASEAN-RRT.<br>
-        • <b>Logistik (MLI):</b> Logika rantai pasok & efisiensi operasional.</p>
+    <div class="showcase-grid">
+      <div class="showcase-img-box">
+        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" alt="Komunitas HEXA & Prestasi LOGIX">
+        <div class="showcase-badge">
+          <b>Keluarga Komunitas HEXA</b><br>
+          <small>Sinergi Mahasiswa & Dosen Politeknik APP Jakarta</small>
+        </div>
       </div>
-      <div class="about-card">
-        <h3>⚡ X (Next-Gen Collaboration)</h3>
-        <p>Menyimbolkan kolaborasi lintas prodi dan akselerasi teknologi tanpa batas dalam menciptakan *X-Factor* keahlian mahasiswa di era digital.</p>
+      <div>
+        <span style="color:var(--logix-merah); font-weight:800; font-size:0.85rem; letter-spacing:1px;">ABOUT LOGIX APP 2026</span>
+        <h2 style="font-size:2.2rem; font-weight:900; color:var(--text-dark); margin:8px 0 16px;" id="txtAboutHeading">Ajang Musiman Teknologi & Sinergi Lintas Prodi</h2>
+        <p style="color:#555; margin-bottom:15px; line-height:1.7;" id="txtAboutBody1">
+          <b>LOGIX APP 2026</b> merupakan acara kompetisi musiman persembahan Politeknik APP Jakarta yang diinisiasi oleh komunitas <b>HEXA</b> (wadah kolaborasi hobi dan inovasi mahasiswa bersama dosen).
+        </p>
+        <p style="color:#555; margin-bottom:20px; line-height:1.7;" id="txtAboutBody2">
+          Melanjutkan jejak kesuksesan partisipasi di berbagai ajang nasional seperti <i>Cokro 2024</i> dan pameran <i>GKM (Gelar Karya Mahasiswa)</i>, LOGIX hadir menyatukan 3 kekuatan Prodi: <b>Pemasaran (MPI)</b>, <b>Perdagangan Internasional (PIWAR)</b>, dan <b>Logistik (MLI)</b>.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- PERLOMBAAN -->
-  <section id="lomba" class="section" style="background: #FFF;">
+  <!-- PERLOMBAAN CONTAINS SECOND ROTATING MANDALA -->
+  <section id="lomba" class="section" style="background: rgba(255,255,255,0.7);">
+    <!-- SVG MANDALA KEDUA DI POJOK KIRI-BAWAH -->
+    <svg class="rotating-mandala mandala-lomba" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#B71C1C" stroke-width="3">
+        <circle cx="250" cy="250" r="220" stroke-dasharray="10 6"/>
+        <circle cx="250" cy="250" r="160"/>
+        <path d="M250 30 Q310 140 250 250 Q190 140 250 30 Z" fill="rgba(183,28,28,0.12)"/>
+        <path d="M250 470 Q310 360 250 250 Q190 360 250 470 Z" fill="rgba(183,28,28,0.12)"/>
+        <path d="M30 250 Q140 310 250 250 Q140 190 30 250 Z" fill="rgba(183,28,28,0.12)"/>
+        <path d="M470 250 Q360 310 250 250 Q360 190 470 250 Z" fill="rgba(183,28,28,0.12)"/>
+        <circle cx="250" cy="250" r="50" fill="#E53935"/>
+      </g>
+    </svg>
+
     <div class="section-title">
-      <h2>Cabang Perlombaan</h2>
-      <p>Pilih kategori perlombaan dan daftarkan tim terbaikmu</p>
+      <h2 id="txtLombaTitle">Cabang Perlombaan</h2>
+      <p id="txtLombaSub">Pilih kategori perlombaan dan daftarkan tim terbaikmu</p>
     </div>
 
     <div class="grid-lomba">
@@ -248,6 +394,60 @@
         <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Turnamen Mobile Legends pertempuran tim 5v5 di Land of Dawn memperebutkan gelar Juara LOGIX 2026.</p>
         <button class="btn btn-outline" onclick="openDetailLomba('Mobile Legends: Bang Bang')">Guidebook</button>
         <button class="btn btn-merah" style="margin-left: 8px;" onclick="bukaFormMultiStep('Mobile Legends: Bang Bang')">Daftar (Rp 150rb)</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ (PERTANYAAN YANG SERING DITANYAKAN) -->
+  <section id="faq" class="section">
+    <div class="section-title">
+      <h2>FAQ (Pertanyaan Umum)</h2>
+      <p>Cari jawaban seputar teknis perlombaan LOGIX 2026</p>
+    </div>
+
+    <div class="faq-search-box">
+      <input type="text" id="faqSearchInput" placeholder="🔍 Cari pertanyaan (contoh: pencahayaan, kamera, tim)..." onkeyup="filterFAQ()">
+    </div>
+
+    <div style="max-width: 750px; margin: 0 auto;" id="faqContainer">
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <div class="faq-question"><span>🤖 Bagaimana kondisi pencahayaan arena Line Follower?</span><span>+</span></div>
+        <div class="faq-answer">Pencahayaan arena menggunakan standar indoor room lighting. Namun, setiap peserta disarankan menyiapkan modul sensor dengan kalibrasi otomatis/penutup cahaya mandiri.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <div class="faq-question"><span>📷 Apakah robot Line Follower boleh memakai bantuan kamera?</span><span>+</span></div>
+        <div class="faq-answer">Boleh! Robot bersifat bebas mikrokontroler & sensor (termasuk sensor photodiode, LDR, maupun camera vision), selama robot berjalan otonom tanpa kendali jarak jauh (remote control).</div>
+      </div>
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <div class="faq-question"><span>🎮 Apakah anggota tim Mobile Legends boleh dari sekolah/kampus berbeda?</span><span>+</span></div>
+        <div class="faq-answer">Boleh. Kategori E-Sport MLBB memperbolehkan gabungan pemain lintas instansi selama ketua tim terdaftar secara resmi.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <div class="faq-question"><span>💳 Bagaimana jika bukti bayar yang di-upload salah/buram?</span><span>+</span></div>
+        <div class="faq-answer">Admin akan mengonfirmasi ulang via WhatsApp terdaftar untuk verifikasi ulang bukti transfer manual.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERI DOKUMENTASI -->
+  <section id="galeri" class="section" style="background: rgba(255,255,255,0.7);">
+    <div class="section-title">
+      <h2>GALERI LOGIX APP</h2>
+      <p>Dokumentasi keseruan dan momen terbaik kompetisi</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80" alt="Line Follower Robot Arena">
+        <div class="gallery-overlay">🤖 Line Follower Arena Competition</div>
+      </div>
+      <div class="gallery-card">
+        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="E-Sport MLBB Tournament">
+        <div class="gallery-overlay">🎮 Mobile Legends Tournament Stage</div>
+      </div>
+      <div class="gallery-card">
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80" alt="Keluarga HEXA & Panitia">
+        <div class="gallery-overlay">👥 Kolaborasi Komunitas HEXA APP</div>
       </div>
     </div>
   </section>
@@ -295,7 +495,7 @@
     </div>
   </div>
 
-  <!-- MODAL 3: DETAIL LOMBA -->
+  <!-- MODAL DETAIL LOMBA -->
   <div id="modalDetailLomba" class="modal-overlay">
     <div class="modal-box">
       <span class="close-btn" onclick="closeModal('modalDetailLomba')">&times;</span>
@@ -306,7 +506,7 @@
     </div>
   </div>
 
-  <!-- MODAL MULTI-STEP ARENA REGISTRATION (1/4 -> 2/4 -> 3/4 -> 4/4) -->
+  <!-- MODAL MULTI-STEP ARENA REGISTRATION (LANGKAH 1/4 -> 2/4 -> 3/4 -> 4/4) -->
   <div id="modalMultiStep" class="modal-overlay">
     <div class="modal-box">
       <span class="close-btn" onclick="closeModal('modalMultiStep')">&times;</span>
@@ -329,7 +529,7 @@
 
       <form id="formMultiStep" onsubmit="handleFinalSubmit(event)">
         
-        <!-- STEP 1: PILIH DIVISI & TINGKAT -->
+        <!-- LANGKAH 1: PILIH DIVISI & TINGKAT -->
         <div class="step-content active" id="step1">
           <div class="form-group">
             <label>Cabang Perlombaan</label>
@@ -352,7 +552,7 @@
           </div>
         </div>
 
-        <!-- STEP 2: DATA KETUA TIM & TWIBBON -->
+        <!-- LANGKAH 2: DATA KETUA TIM & TWIBBON -->
         <div class="step-content" id="step2">
           <div class="form-group"><label>Nama Tim / Klub</label><input type="text" id="stepNamaTim" required placeholder="Contoh: LOGIX Robotics APP"></div>
           <div class="form-group"><label>Nama Lengkap Ketua Tim</label><input type="text" id="stepNamaKetua" required placeholder="Nama ketua tim"></div>
@@ -374,7 +574,7 @@
           </div>
         </div>
 
-        <!-- STEP 3: DATA ANGGOTA TIM -->
+        <!-- LANGKAH 3: DATA ANGGOTA TIM -->
         <div class="step-content" id="step3">
           <p style="font-size:0.85rem; color:#666; margin-bottom:15px;">*Isikan nama anggota tim Anda (Opsional jika solo player / sesuai kebutuhan tim).</p>
           <div class="form-group"><label>Nama Anggota 1</label><input type="text" id="stepMember1" placeholder="Nama anggota 1 (opsional)"></div>
@@ -387,7 +587,7 @@
           </div>
         </div>
 
-        <!-- STEP 4: PEMBAYARAN & UPLOAD BUKTI TRANSFER -->
+        <!-- LANGKAH 4: PEMBAYARAN & UPLOAD BUKTI TRANSFER -->
         <div class="step-content" id="step4">
           <div style="text-align: center; margin-bottom: 12px;">
             <a href="https://ibb.co.com/TM9dBvmJ" target="_blank" class="btn btn-outline" style="padding: 6px 16px; font-size: 0.8rem;">📷 Lihat QRIS All Payment</a>
@@ -441,6 +641,40 @@
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     function switchModal(fromId, toId) { closeModal(fromId); openModal(toId); }
     function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+
+    // SWITCH LANGUAGE (ID / EN)
+    function setLanguage(lang) {
+      document.getElementById('btnLangID').classList.toggle('active', lang === 'id');
+      document.getElementById('btnLangEN').classList.toggle('active', lang === 'en');
+
+      if(lang === 'en') {
+        document.getElementById('txtHeroDesc').innerText = "A prestigious Robotics & E-Sport competition combining cross-program expertise at Politeknik APP Jakarta to cultivate agility, logic analysis, and digital strategy for the young generation.";
+        document.getElementById('btnHeroLomba').innerText = "View Competitions";
+        document.getElementById('btnHeroTentang').innerText = "LOGIX Philosophy";
+        document.getElementById('txtAboutHeading').innerText = "Seasonal Tech Event & Cross-Program Synergy";
+        document.getElementById('txtLombaTitle').innerText = "Competition Branches";
+        document.getElementById('txtLombaSub').innerText = "Select a competition category and register your team";
+      } else {
+        document.getElementById('txtHeroDesc').innerText = "Ajang kompetisi Robotika & E-Sport bergengsi berbasis sinergi keahlian lintas prodi Politeknik APP Jakarta untuk melatih ketangkasan, analisis logika, dan strategi digital generasi muda Indonesia.";
+        document.getElementById('btnHeroLomba').innerText = "Lihat Perlombaan";
+        document.getElementById('btnHeroTentang').innerText = "Filosofi LOGIX";
+        document.getElementById('txtAboutHeading').innerText = "Ajang Musiman Teknologi & Sinergi Lintas Prodi";
+        document.getElementById('txtLombaTitle').innerText = "Cabang Perlombaan";
+        document.getElementById('txtLombaSub').innerText = "Pilih kategori perlombaan dan daftarkan tim terbaikmu";
+      }
+    }
+
+    // FAQ ACCORDION & SEARCH
+    function toggleFAQ(element) { element.classList.toggle('active'); }
+
+    function filterFAQ() {
+      const query = document.getElementById('faqSearchInput').value.toLowerCase();
+      const items = document.querySelectorAll('#faqContainer .faq-item');
+      items.forEach(item => {
+        const text = item.innerText.toLowerCase();
+        item.style.display = text.includes(query) ? 'block' : 'none';
+      });
+    }
 
     supabaseClient.auth.onAuthStateChange(async (event, session) => {
       if (event === "PASSWORD_RECOVERY") openModal("modalResetPassword");
@@ -497,10 +731,10 @@
       const fileName = `${folderName}_${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
       const filePath = `${folderName}/${fileName}`;
 
-      const { data, error } = await supabaseClient.storage.from('berkas-lifo').upload(filePath, file);
+      const { data, error } = await supabaseClient.storage.from('berkas_logix').upload(filePath, file);
       if (error) throw error;
 
-      const { data: urlData } = supabaseClient.storage.from('berkas-lifo').getPublicUrl(filePath);
+      const { data: urlData } = supabaseClient.storage.from('berkas_logix').getPublicUrl(filePath);
       return urlData.publicUrl;
     }
 
