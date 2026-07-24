@@ -164,7 +164,7 @@
     .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; position: relative; z-index: 2; }
     .showcase-img-box {
       position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.12); border: 4px solid var(--logix-merah);
-      transition: all 0.35s ease; max-height: 380px;
+      transition: all 0.35s ease; max-height: 380px; background: #EEE;
     }
     .showcase-img-box:hover { transform: scale(1.02); box-shadow: 0 20px 40px var(--logix-merah-glow-heavy); }
     .showcase-img-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -237,15 +237,15 @@
     /* GALLERY GRID */
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; position: relative; z-index: 2; }
     .gallery-card {
-      position: relative; border-radius: 16px; overflow: hidden; height: 230px;
+      position: relative; border-radius: 16px; overflow: hidden; height: 240px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border: 3px solid rgba(255, 255, 255, 0.9); cursor: pointer;
+      border: 3px solid rgba(255, 255, 255, 0.9); cursor: pointer; background: #EEE;
     }
     .gallery-card:hover {
       transform: scale(1.05) rotate(1deg); border-color: var(--logix-merah-bright);
       box-shadow: 0 14px 30px var(--logix-merah-glow-heavy);
     }
-    .gallery-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s ease; }
+    .gallery-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s ease; display: block; }
     .gallery-card:hover img { transform: scale(1.08); }
     .gallery-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 15px; background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: #FFF; font-size: 0.85rem; font-weight: bold; }
 
@@ -372,12 +372,12 @@
     </div>
   </div>
 
-  <!-- SLIDE 2: TENTANG LOGIX APP (FOTO JUARA PRESTASI REKAP) -->
+  <!-- SLIDE 2: TENTANG LOGIX APP (FOTO JUARA PRESTASI) -->
   <section id="tentang" class="section">
     <div class="showcase-grid scroll-reveal">
       <div class="showcase-img-box">
-        <!-- FOTO UTAMA PRESTASI TERBAIK JUARA WORLD ROBOTIC COMPETITION -->
-        <img src="https://i.ibb.co.com/mCBWW22K/image-d95f53.png" alt="Juara World Robotic Competition 2025 Komunitas HEXA">
+        <!-- FOTO UTAMA PRESTASI JUARA WORLD ROBOTIC COMPETITION -->
+        <img src="https://i.postimg.cc/tJnNfQJb/image-d95f53.png" alt="Juara World Robotic Competition 2025 Komunitas HEXA">
         <div class="showcase-badge">
           <b id="txtBadgeTitle" data-id="Prestasi Komunitas HEXA" data-en="HEXA Community Achievements">Prestasi Komunitas HEXA</b><br>
           <small id="txtBadgeSub" data-id="Juara World Robotic Competition 2025 - Politeknik APP Jakarta" data-en="World Robotic Competition 2025 Winner - Politeknik APP Jakarta">Juara World Robotic Competition 2025 - Politeknik APP Jakarta</small>
@@ -498,7 +498,7 @@
     </div>
   </section>
 
-  <!-- SLIDE 5: GALERI LOGIX APP (3 FOTO NON-FORMAL KEBERASAMAAN) -->
+  <!-- SLIDE 5: GALERI LOGIX APP (3 FOTO DIRECT CDN) -->
   <section id="galeri" class="section">
     <div class="section-title scroll-reveal">
       <h2 id="txtGalleryTitle" data-id="GALERI LOGIX APP" data-en="LOGIX APP GALLERY">GALERI LOGIX APP</h2>
@@ -508,17 +508,17 @@
     <div class="gallery-grid">
       <!-- FOTO GALERI 1: CANDI -->
       <div class="gallery-card scroll-reveal">
-        <img src="https://i.ibb.co.com/FkrRrmq/image-d95f94.jpg" alt="Momen Kebersamaan Komunitas HEXA di Candi">
+        <img src="https://i.postimg.cc/HxbjZrt9/image-d95f94.jpg" alt="Momen Kebersamaan Komunitas HEXA di Candi">
         <div class="gallery-overlay">🏛️ Momen Kebersamaan di Candi</div>
       </div>
       <!-- FOTO GALERI 2: MAKAN BARENG -->
       <div class="gallery-card scroll-reveal">
-        <img src="https://i.ibb.co.com/B28NrtR1/image-d95f79.jpg" alt="Kumpul & Makan Bareng Keluarga HEXA">
+        <img src="https://i.postimg.cc/Hk0J4hYg/image-d95f79.jpg" alt="Kumpul & Makan Bareng Keluarga HEXA">
         <div class="gallery-overlay">🍲 Kumpul & Makan Bareng Tim</div>
       </div>
       <!-- FOTO GALERI 3: SELFIE CANDID -->
       <div class="gallery-card scroll-reveal">
-        <img src="https://i.ibb.co.com/83p1X2q sequence/image-d95f71.jpg" alt="Selfie Seru Komunitas HEXA APP">
+        <img src="https://i.postimg.cc/9MspLwGf/image-d95f71.jpg" alt="Selfie Seru Komunitas HEXA APP">
         <div class="gallery-overlay">📸 Selfie Seru Keluarga HEXA</div>
       </div>
     </div>
