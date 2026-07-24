@@ -13,6 +13,7 @@
       --logix-merah: #B71C1C;
       --logix-merah-bright: #E53935;
       --logix-merah-glow: rgba(229, 57, 53, 0.45);
+      --logix-merah-glow-heavy: rgba(229, 57, 53, 0.65);
       --logix-putih: #FFFFFF;
       --logix-bg: #F5F3F6;
       --logix-card-bg: rgba(255, 255, 255, 0.94);
@@ -40,8 +41,8 @@
     }
 
     @keyframes highlightFocusFast {
-      0% { transform: scale(1.02); border-color: var(--logix-merah-bright); box-shadow: 0 0 30px var(--logix-merah-glow); }
-      50% { transform: scale(1.03); border-color: var(--logix-merah-bright); box-shadow: 0 0 45px rgba(229, 57, 53, 0.8); }
+      0% { transform: scale(1.02); border-color: var(--logix-merah-bright); box-shadow: 0 0 30px var(--logix-merah-glow-heavy); }
+      50% { transform: scale(1.04); border-color: var(--logix-merah-bright); box-shadow: 0 0 50px rgba(229, 57, 53, 0.85); }
       100% { transform: scale(1); border-color: rgba(183, 28, 28, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
     }
 
@@ -71,27 +72,28 @@
 
     .nav-menu { display: flex; align-items: center; gap: 24px; list-style: none; }
     .nav-item { position: relative; }
-    .nav-link { text-decoration: none; color: var(--text-dark); font-weight: 700; font-size: 0.92rem; cursor: pointer; transition: 0.2s; }
-    .nav-link:hover { color: var(--logix-merah); }
+    .nav-link { text-decoration: none; color: var(--text-dark); font-weight: 700; font-size: 0.92rem; cursor: pointer; transition: 0.25s ease; }
+    .nav-link:hover { color: var(--logix-merah); transform: translateY(-1px); }
 
     .dropdown-menu {
       position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
       background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 12px 0; min-width: 220px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12); padding: 12px 0; min-width: 220px;
       display: none; flex-direction: column; z-index: 101; margin-top: 10px;
     }
     .nav-item:hover .dropdown-menu { display: flex; }
     .dropdown-item {
-      padding: 10px 20px; text-decoration: none; color: #333; font-weight: 600; font-size: 0.88rem; transition: 0.2s; display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+      padding: 10px 20px; text-decoration: none; color: #333; font-weight: 600; font-size: 0.88rem; transition: 0.25s ease; display: flex; justify-content: space-between; align-items: center; cursor: pointer;
     }
-    .dropdown-item:hover { background: #FFEBEE; color: var(--logix-merah); }
+    .dropdown-item:hover { background: #FFEBEE; color: var(--logix-merah); transform: translateX(4px); }
     .badge-cs { font-size: 0.68rem; padding: 2px 6px; background: #EEE; color: #888; border-radius: 10px; font-weight: bold; }
 
     .lang-switcher {
-      display: flex; background: #EAEAEA; border-radius: 20px; padding: 3px; font-weight: 800; font-size: 0.8rem; cursor: pointer;
+      display: flex; background: #EAEAEA; border-radius: 20px; padding: 3px; font-weight: 800; font-size: 0.8rem; cursor: pointer; transition: 0.25s ease;
     }
+    .lang-switcher:hover { box-shadow: 0 0 10px var(--logix-merah-glow); }
     .lang-btn { padding: 4px 10px; border-radius: 16px; transition: 0.3s; color: #777; }
-    .lang-btn.active { background: var(--logix-merah); color: #FFF; }
+    .lang-btn.active { background: var(--logix-merah); color: #FFF; box-shadow: 0 2px 8px var(--logix-merah-glow); }
 
     /* HERO BANNER */
     .hero { position: relative; background: transparent; padding: 75px 8% 65px; overflow: hidden; border-bottom: 1px solid #E5E5E5; }
@@ -99,8 +101,9 @@
     .hero-tag {
       display: inline-block; background: #FFEBEE; color: var(--logix-merah);
       padding: 6px 16px; border-radius: 30px; font-weight: 700; font-size: 0.82rem;
-      letter-spacing: 1px; margin-bottom: 15px; border: 1px solid #FFCDD2;
+      letter-spacing: 1px; margin-bottom: 15px; border: 1px solid #FFCDD2; transition: 0.3s ease;
     }
+    .hero-tag:hover { transform: scale(1.05); box-shadow: 0 4px 12px var(--logix-merah-glow); }
     .hero h1 { font-size: 2.8rem; color: var(--text-dark); margin-bottom: 15px; font-weight: 900; line-height: 1.2; }
     .hero h1 span { color: var(--logix-merah); }
 
@@ -112,76 +115,145 @@
       box-shadow: 0 10px 30px rgba(183, 28, 28, 0.3); border: 2px solid #FFCDD2;
     }
     .vip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin-top: 18px; }
-    .vip-item { background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(8px); padding: 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); }
+    .vip-item { background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(8px); padding: 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); transition: 0.3s ease; }
+    .vip-item:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
 
-    /* BUTTONS */
-    .btn { padding: 12px 28px; border-radius: 10px; font-weight: 800; border: none; cursor: pointer; transition: all 0.25s ease; font-size: 0.9rem; display: inline-block; text-decoration: none; }
-    .btn-merah { background: var(--logix-merah); color: white; box-shadow: 0 4px 15px var(--logix-merah-glow); }
-    .btn-merah:hover { background: var(--logix-merah-bright); transform: translateY(-2px); }
-    .btn-outline { background: rgba(255, 255, 255, 0.95); border: 2px solid var(--logix-merah); color: var(--logix-merah); }
-    .btn-outline:hover { background: #FFEBEE; }
-    .btn-disabled { background: #E0E0E0; border: 2px solid #CCC; color: #888; cursor: not-allowed; }
-    .btn-drive { background: #0F9D58; color: white; display: block; text-align: center; margin-top: 12px; }
+    /* ========================================================= */
+    /* UTUTAN EFEK INTERAKTIF MEMBAL & SHADOW MERAH UNTUK TOMBOL */
+    /* ========================================================= */
+    .btn {
+      padding: 12px 28px; border-radius: 10px; font-weight: 800; border: none; cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); font-size: 0.9rem; display: inline-block; text-decoration: none;
+      position: relative; overflow: hidden;
+    }
 
-    /* SECTIONS */
+    /* TOMBOL MERAH INTERAKTIF */
+    .btn-merah {
+      background: var(--logix-merah); color: white;
+      box-shadow: 0 4px 15px var(--logix-merah-glow);
+    }
+    .btn-merah:hover, .btn-merah:active {
+      background: var(--logix-merah-bright);
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 10px 25px var(--logix-merah-glow-heavy);
+    }
+    .btn-merah:active { transform: translateY(-1px) scale(0.98); }
+
+    /* TOMBOL OUTLINE PUTIH INTERAKTIF (TENTANG KAMI, GUIDEBOOK, MASUK) */
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.95); border: 2.5px solid var(--logix-merah); color: var(--logix-merah);
+      box-shadow: 0 4px 12px rgba(183, 28, 28, 0.12);
+    }
+    .btn-outline:hover, .btn-outline:active {
+      background: #FFEBEE;
+      color: var(--logix-merah-bright);
+      border-color: var(--logix-merah-bright);
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 10px 25px var(--logix-merah-glow-heavy);
+    }
+    .btn-outline:active { transform: translateY(-1px) scale(0.98); }
+
+    .btn-disabled { background: #E0E0E0; border: 2px solid #CCC; color: #888; cursor: not-allowed; transition: 0.25s ease; }
+    .btn-disabled:hover { background: #D6D6D6; transform: translateY(-2px); }
+
+    .btn-drive { background: #0F9D58; color: white; display: block; text-align: center; margin-top: 12px; transition: 0.3s ease; }
+    .btn-drive:hover { background: #0B8043; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(15, 157, 88, 0.4); }
+
+    /* SECTIONS & CARDS */
     .section { padding: 70px 8%; position: relative; }
     .section-title { text-align: center; margin-bottom: 40px; position: relative; z-index: 2; }
     .section-title h2 { font-size: 2.1rem; color: var(--logix-merah); font-weight: 900; }
     .section-title p { color: var(--text-muted); font-size: 0.95rem; }
 
     .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; position: relative; z-index: 2; }
-    .showcase-img-box { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.12); border: 4px solid var(--logix-merah); }
+    .showcase-img-box {
+      position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.12); border: 4px solid var(--logix-merah);
+      transition: all 0.35s ease;
+    }
+    .showcase-img-box:hover { transform: scale(1.02); box-shadow: 0 20px 40px var(--logix-merah-glow-heavy); }
     .showcase-img-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .showcase-badge { position: absolute; bottom: 20px; left: 20px; background: rgba(0,0,0,0.85); color: #FFF; padding: 10px 18px; border-radius: 12px; backdrop-filter: blur(5px); font-size: 0.85rem; border-left: 4px solid var(--logix-merah-bright); }
 
+    /* KARTU PUTIH PERLOMBAAN INTERAKTIF */
     .grid-lomba { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; position: relative; z-index: 2; }
-    .card-lomba { background: var(--logix-card-bg); backdrop-filter: blur(10px); padding: 32px; border-radius: 18px; border: 2px solid rgba(183, 28, 28, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.06); transition: all 0.3s ease; scroll-margin-top: 110px; }
+    .card-lomba {
+      background: var(--logix-card-bg); backdrop-filter: blur(10px); padding: 32px; border-radius: 18px;
+      border: 2px solid rgba(183, 28, 28, 0.25); box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275); scroll-margin-top: 110px; cursor: pointer;
+    }
+    .card-lomba:hover, .card-lomba:active {
+      transform: translateY(-10px) scale(1.02);
+      border-color: var(--logix-merah-bright);
+      box-shadow: 0 18px 40px var(--logix-merah-glow-heavy), 0 0 15px rgba(183, 28, 28, 0.2);
+    }
     .card-lomba.soon-card { border-color: #DDD; background: rgba(245, 245, 248, 0.85); }
+    .card-lomba.soon-card:hover { border-color: #BBB; box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+
     .badge-lomba { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 800; background: #FFEBEE; color: var(--logix-merah); margin-bottom: 15px; }
     .badge-soon { background: #EEE; color: #777; }
 
     /* FAQ SEARCH BOX FULL WIDTH */
     .faq-search-box {
-      width: 100%;
-      max-width: 750px;
-      margin: 0 auto 25px;
-      position: relative;
-      z-index: 2;
+      width: 100%; max-width: 750px; margin: 0 auto 25px; position: relative; z-index: 2;
     }
     .faq-search-box input {
-      width: 100%;
-      padding: 14px 22px;
-      border-radius: 30px;
-      border: 2px solid #DDD;
-      outline: none;
-      font-size: 0.95rem;
-      transition: 0.3s;
-      background: rgba(255,255,255,0.95);
+      width: 100%; padding: 14px 22px; border-radius: 30px; border: 2px solid #DDD;
+      outline: none; font-size: 0.95rem; transition: 0.3s ease; background: rgba(255,255,255,0.95);
       box-shadow: 0 4px 15px rgba(0,0,0,0.03);
     }
-    .faq-search-box input:focus { border-color: var(--logix-merah); box-shadow: 0 0 0 4px var(--logix-merah-glow); }
+    .faq-search-box input:focus { border-color: var(--logix-merah); box-shadow: 0 0 0 4px var(--logix-merah-glow); transform: scale(1.01); }
 
     /* FAQ INTERNAL SCROLL CONTAINER KHUSUS SLIDE 4 */
     .faq-scroll-box {
       width: 100%; max-width: 750px; margin: 0 auto;
-      max-height: 400px; overflow-y: auto;
-      padding-right: 8px; position: relative; z-index: 2;
+      max-height: 400px; overflow-y: auto; padding-right: 8px; position: relative; z-index: 2;
     }
     .faq-scroll-box::-webkit-scrollbar { width: 6px; }
     .faq-scroll-box::-webkit-scrollbar-thumb { background: var(--logix-merah); border-radius: 10px; }
     .faq-scroll-box::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
 
-    .faq-item { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border: 2px solid rgba(183, 28, 28, 0.18); border-radius: 14px; margin-bottom: 12px; overflow: hidden; transition: 0.25s; }
-    .faq-item:hover { border-color: var(--logix-merah-bright); }
-    .faq-question { padding: 16px 22px; font-weight: 800; font-size: 0.93rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--text-dark); }
+    /* ITEM FAQ PERTANYAAN INTERAKTIF & HIDUP */
+    .faq-item {
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);
+      border: 2px solid rgba(183, 28, 28, 0.18); border-radius: 14px; margin-bottom: 12px;
+      overflow: hidden; transition: all 0.3s ease; cursor: pointer;
+    }
+    .faq-item:hover {
+      border-color: var(--logix-merah-bright);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px var(--logix-merah-glow);
+    }
+    .faq-question {
+      padding: 16px 22px; font-weight: 800; font-size: 0.93rem; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; color: var(--text-dark); transition: 0.25s ease;
+    }
+    .faq-icon-toggle {
+      font-size: 1.2rem; font-weight: 900; color: var(--logix-merah); transition: transform 0.3s ease;
+    }
     .faq-answer { padding: 0 22px 16px; color: #555; font-size: 0.88rem; line-height: 1.6; display: none; }
+    
+    /* FAQ AKTIFF / SAAT DIPENCET */
+    .faq-item.active {
+      border-color: var(--logix-merah-bright); background: #FFEBEE;
+      box-shadow: 0 10px 25px var(--logix-merah-glow-heavy); transform: scale(1.01);
+    }
+    .faq-item.active .faq-question { color: var(--logix-merah); }
+    .faq-item.active .faq-icon-toggle { transform: rotate(45deg); }
     .faq-item.active .faq-answer { display: block; }
-    .faq-item.active { border-color: var(--logix-merah-bright); background: #FFFAFA; }
 
     /* GALLERY GRID */
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; position: relative; z-index: 2; }
-    .gallery-card { position: relative; border-radius: 16px; overflow: hidden; height: 210px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.3s ease; border: 3px solid rgba(255, 255, 255, 0.9); }
-    .gallery-card img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-card {
+      position: relative; border-radius: 16px; overflow: hidden; height: 210px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 3px solid rgba(255, 255, 255, 0.9); cursor: pointer;
+    }
+    .gallery-card:hover {
+      transform: scale(1.05) rotate(1deg); border-color: var(--logix-merah-bright);
+      box-shadow: 0 14px 30px var(--logix-merah-glow-heavy);
+    }
+    .gallery-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s ease; }
+    .gallery-card:hover img { transform: scale(1.08); }
     .gallery-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 15px; background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: #FFF; font-size: 0.85rem; font-weight: bold; }
 
     /* FOOTER ALA TECHNO CORNER */
@@ -194,29 +266,31 @@
     .footer-title { color: #FFF; font-weight: 800; font-size: 0.95rem; margin-bottom: 15px; letter-spacing: 0.5px; }
     .footer-links { list-style: none; }
     .footer-links li { margin-bottom: 8px; }
-    .footer-links a { color: #AAA; text-decoration: none; transition: 0.2s; font-size: 0.85rem; cursor: pointer; }
-    .footer-links a:hover { color: var(--logix-merah-bright); }
+    .footer-links a { color: #AAA; text-decoration: none; transition: 0.25s ease; font-size: 0.85rem; cursor: pointer; display: inline-block; }
+    .footer-links a:hover { color: var(--logix-merah-bright); transform: translateX(5px); }
     .social-icons { display: flex; gap: 12px; margin-top: 10px; }
-    .social-icon-btn { width: 38px; height: 38px; border-radius: 50%; background: #1E1E24; display: flex; align-items: center; justify-content: center; color: #FFF; text-decoration: none; font-size: 1.1rem; transition: 0.3s; }
-    .social-icon-btn:hover { background: var(--logix-merah); transform: translateY(-3px); }
+    .social-icon-btn { width: 38px; height: 38px; border-radius: 50%; background: #1E1E24; display: flex; align-items: center; justify-content: center; color: #FFF; text-decoration: none; font-size: 1.1rem; transition: 0.3s ease; }
+    .social-icon-btn:hover { background: var(--logix-merah); transform: translateY(-4px) scale(1.1); box-shadow: 0 6px 15px var(--logix-merah-glow-heavy); }
     .footer-bottom { text-align: center; border-top: 1px solid #222; padding-top: 20px; color: #666; font-size: 0.8rem; }
 
     /* MODALS */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 15, 20, 0.75); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
     .modal-box { background: #FFFFFF; border-radius: 20px; width: 100%; max-width: 600px; padding: 35px; position: relative; border-top: 8px solid var(--logix-merah); box-shadow: 0 20px 50px rgba(0,0,0,0.25); max-height: 92vh; overflow-y: auto; }
-    .close-btn { position: absolute; top: 18px; right: 22px; font-size: 28px; cursor: pointer; color: #AAA; }
+    .close-btn { position: absolute; top: 18px; right: 22px; font-size: 28px; cursor: pointer; color: #AAA; transition: 0.2s ease; }
+    .close-btn:hover { color: var(--logix-merah); transform: scale(1.2); }
 
     .step-progress { display: flex; justify-content: space-between; margin: 20px 0 30px; position: relative; }
     .step-progress-bar { position: absolute; top: 50%; left: 0; transform: translateY(-50%); height: 4px; background: var(--logix-merah); width: 0%; z-index: 1; transition: width 0.3s ease; }
     .step-bg-bar { position: absolute; top: 50%; left: 0; transform: translateY(-50%); height: 4px; background: #E0E0E0; width: 100%; z-index: 0; }
     .step-circle { width: 36px; height: 36px; border-radius: 50%; background: #E0E0E0; color: #666; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; position: relative; z-index: 2; border: 3px solid #FFF; }
-    .step-circle.active { background: var(--logix-merah); color: #FFF; }
+    .step-circle.active { background: var(--logix-merah); color: #FFF; box-shadow: 0 0 10px var(--logix-merah-glow); }
 
     .step-content { display: none; }
     .step-content.active { display: block; }
     .form-group { margin-bottom: 18px; text-align: left; }
     .form-group label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 0.88rem; color: #333; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; background: #FAFAFC; border: 1.5px solid #DDD; border-radius: 10px; outline: none; font-size: 0.92rem; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; background: #FAFAFC; border: 1.5px solid #DDD; border-radius: 10px; outline: none; font-size: 0.92rem; transition: 0.25s ease; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--logix-merah); background: #FFF; box-shadow: 0 0 0 3px var(--logix-merah-glow); }
 
     @media (max-width: 850px) {
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
@@ -396,35 +470,35 @@
 
     <div class="faq-scroll-box scroll-reveal" id="faqContainer">
       <div class="faq-item" onclick="toggleFAQ(this)">
-        <div class="faq-question"><span>🤖 Bagaimana kondisi pencahayaan arena Line Follower?</span><span>+</span></div>
+        <div class="faq-question"><span>🤖 Bagaimana kondisi pencahayaan arena Line Follower?</span><span class="faq-icon-toggle">+</span></div>
         <div class="faq-answer">Pencahayaan arena menggunakan standar indoor room lighting. Namun, setiap peserta disarankan menyiapkan modul sensor dengan kalibrasi otomatis/penutup cahaya mandiri.</div>
       </div>
       <div class="faq-item" onclick="toggleFAQ(this)">
-        <div class="faq-question"><span>📷 Apakah robot Line Follower boleh memakai bantuan kamera/vision?</span><span>+</span></div>
+        <div class="faq-question"><span>📷 Apakah robot Line Follower boleh memakai bantuan kamera/vision?</span><span class="faq-icon-toggle">+</span></div>
         <div class="faq-answer">Boleh! Robot bersifat bebas mikrokontroler & sensor (termasuk photodiode, LDR, maupun camera vision), selama robot berjalan otonom tanpa kendali jarak jauh (remote control).</div>
       </div>
       <div class="faq-item" onclick="toggleFAQ(this)">
-        <div class="faq-question"><span>⚙️ Berapa dimensi dan berat maksimal robot Line Follower?</span><span>+</span></div>
+        <div class="faq-question"><span>⚙️ Berapa dimensi dan berat maksimal robot Line Follower?</span><span class="faq-icon-toggle">+</span></div>
         <div class="faq-answer">Dimensi maksimal robot adalah 20cm x 20cm x 20cm dengan berat maksimal 1kg saat dalam kondisi siap bertanding di garis start.</div>
       </div>
       <div class="faq-item" onclick="toggleFAQ(this)">
-        <div class="faq-question"><span>🎮 Apakah anggota tim Mobile Legends boleh dari sekolah/kampus berbeda?</span><span>+</span></div>
+        <div class="faq-question"><span>🎮 Apakah anggota tim Mobile Legends boleh dari sekolah/kampus berbeda?</span><span class="faq-icon-toggle">+</span></div>
         <div class="faq-answer">Boleh. Kategori E-Sport MLBB memperbolehkan gabungan pemain lintas instansi selama ketua tim terdaftar secara resmi.</div>
       </div>
       <div class="faq-item" onclick="toggleFAQ(this)">
-        <div class="faq-question"><span>⚔️ Apakah ada batasan Rank atau penggunaan Skin di Tournament MLBB?</span><span>+</span></div>
+        <div class="faq-question"><span>⚔️ Apakah ada batasan Rank atau penggunaan Skin di Tournament MLBB?</span><span class="faq-icon-toggle">+</span></div>
         <div class="faq-answer">Tidak ada batasan rank! Semua rank diperbolehkan. Penggunaan skin BANYAK DIPERBOLEHKAN (Skin On) kecuali jika ada instruksi khusus panitia sebelum Match dimulai.</div>
       </div>
       <div class="faq-item" onclick="toggleFAQ(this)">
-        <div class="faq-question"><span>🖼️ Dimana saya bisa mengunduh template Twibbon peserta?</span><span>+</span></div>
+        <div class="faq-question"><span>🖼️ Dimana saya bisa mengunduh template Twibbon peserta?</span><span class="faq-icon-toggle">+</span></div>
         <div class="faq-answer">Template Twibbon dapat diunduh langsung di dalam Portal Member setelah Anda Login, atau melalui link Google Drive yang tersedia di Guidebook Lomba.</div>
       </div>
       <div class="faq-item" onclick="toggleFAQ(this)">
-        <div class="faq-question"><span>💳 Bagaimana jika bukti bayar yang di-upload salah/buram?</span><span>+</span></div>
+        <div class="faq-question"><span>💳 Bagaimana jika bukti bayar yang di-upload salah/buram?</span><span class="faq-icon-toggle">+</span></div>
         <div class="faq-answer">Admin akan mengonfirmasi ulang via WhatsApp terdaftar untuk verifikasi manual bukti transfer Anda.</div>
       </div>
       <div class="faq-item" onclick="toggleFAQ(this)">
-        <div class="faq-question"><span>🏆 Berapa total hadiah sertifikat & trophy yang diperebutkan?</span><span>+</span></div>
+        <div class="faq-question"><span>🏆 Berapa total hadiah sertifikat & trophy yang diperebutkan?</span><span class="faq-icon-toggle">+</span></div>
         <div class="faq-answer">Setiap pemenang Juara 1, 2, dan 3 di tiap cabang akan mendapatkan Trophy, Uang Pembinaan, serta Sertifikat Penghargaan Resmi dari Politeknik APP Jakarta.</div>
       </div>
     </div>
@@ -677,7 +751,9 @@
       });
     }
 
-    function toggleFAQ(element) { element.classList.toggle('active'); }
+    function toggleFAQ(element) {
+      element.classList.toggle('active');
+    }
 
     function filterFAQ() {
       const query = document.getElementById('faqSearchInput').value.toLowerCase();
