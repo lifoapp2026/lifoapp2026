@@ -15,7 +15,7 @@
       --logix-merah-glow: rgba(229, 57, 53, 0.35);
       --logix-putih: #FFFFFF;
       --logix-bg: #F5F3F6;
-      --logix-card-bg: rgba(255, 255, 255, 0.93);
+      --logix-card-bg: rgba(255, 255, 255, 0.94);
       --text-dark: #1E1E1E;
       --text-muted: #555555;
     }
@@ -47,7 +47,6 @@
       100% { border-color: rgba(183, 28, 28, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
     }
 
-    /* ELEMEN REAKSI SCROLL REAL-TIME */
     .scroll-reveal {
       opacity: 0;
       will-change: transform, opacity;
@@ -60,10 +59,10 @@
 
     /* NAVBAR & DROPDOWN */
     nav {
-      background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(14px);
       padding: 16px 8%; display: flex; justify-content: space-between; align-items: center;
       border-bottom: 2px solid #E5E5E5; position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
     }
     .brand { font-size: 1.45rem; font-weight: 900; color: var(--logix-merah); letter-spacing: 1.5px; text-decoration: none; }
     .brand span { color: var(--text-dark); }
@@ -82,7 +81,7 @@
     }
     .nav-item:hover .dropdown-menu { display: flex; }
     .dropdown-item {
-      padding: 10px 20px; text-decoration: none; color: #333; font-weight: 600; font-size: 0.88rem; transition: 0.2s; display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 20px; text-decoration: none; color: #333; font-weight: 600; font-size: 0.88rem; transition: 0.2s; display: flex; justify-content: space-between; align-items: center; cursor: pointer;
     }
     .dropdown-item:hover { background: #FFEBEE; color: var(--logix-merah); }
     .badge-cs { font-size: 0.68rem; padding: 2px 6px; background: #EEE; color: #888; border-radius: 10px; font-weight: bold; }
@@ -96,7 +95,7 @@
 
     /* HERO BANNER */
     .hero {
-      position: relative; background: transparent; padding: 90px 8% 80px;
+      position: relative; background: transparent; padding: 80px 8% 70px;
       overflow: hidden; border-bottom: 1px solid #E5E5E5;
     }
     .hero-content { position: relative; z-index: 2; max-width: 680px; }
@@ -128,15 +127,13 @@
     .btn-drive { background: #0F9D58; color: white; display: block; text-align: center; margin-top: 12px; }
 
     /* SECTIONS */
-    .section { padding: 80px 8%; position: relative; }
+    .section { padding: 75px 8%; position: relative; }
     .section-title { text-align: center; margin-bottom: 45px; position: relative; z-index: 2; }
     .section-title h2 { font-size: 2.1rem; color: var(--logix-merah); font-weight: 900; }
     .section-title p { color: var(--text-muted); font-size: 0.95rem; }
 
     /* SHOWCASE TENTANG KAMI */
     .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; position: relative; z-index: 2; }
-    @media (max-width: 850px) { .showcase-grid { grid-template-columns: 1fr; } }
-    
     .showcase-img-box {
       position: relative; border-radius: 20px; overflow: hidden;
       box-shadow: 0 15px 35px rgba(0,0,0,0.12); border: 4px solid var(--logix-merah);
@@ -272,6 +269,19 @@
     .btn-group-step { display: flex; justify-content: space-between; margin-top: 30px; gap: 12px; }
 
     footer { background: #111115; color: #888; text-align: center; padding: 30px; font-size: 0.88rem; border-top: 1px solid #222; position: relative; z-index: 2; }
+
+    /* RESPONSIVE KHUSUS MOBILE / HP */
+    @media (max-width: 768px) {
+      nav { padding: 12px 5%; }
+      .nav-menu { gap: 12px; }
+      .nav-link { font-size: 0.82rem; }
+      .hero { padding: 50px 5% 40px; }
+      .hero h1 { font-size: 2.1rem; }
+      .section { padding: 50px 5%; }
+      .showcase-grid { grid-template-columns: 1fr; gap: 20px; }
+      .about-card, .card-lomba { padding: 20px; }
+      .btn { padding: 10px 20px; font-size: 0.85rem; }
+    }
   </style>
 </head>
 <body>
@@ -285,8 +295,8 @@
       <li class="nav-item">
         <a class="nav-link">Kompetisi ▾</a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" onclick="bukaFormMultiStep('Line Follower Robot')">🤖 Line Follower</a>
-          <a class="dropdown-item" onclick="bukaFormMultiStep('Mobile Legends: Bang Bang')">🎮 Mobile Legends</a>
+          <a class="dropdown-item" onclick="scrollToSection('card-line-follower')">🤖 Line Follower</a>
+          <a class="dropdown-item" onclick="scrollToSection('card-mobile-legends')">🎮 Mobile Legends</a>
           <a class="dropdown-item" style="opacity:0.6;">🌐 IoT Competition <span class="badge-cs">Soon</span></a>
           <a class="dropdown-item" style="opacity:0.6;">📦 Transporter Bot <span class="badge-cs">Soon</span></a>
           <a class="dropdown-item" style="opacity:0.6;">⚽ SoccerBot <span class="badge-cs">Soon</span></a>
@@ -317,22 +327,22 @@
       <h1 id="txtHeroTitle">LOGIX FESTIVAL <span>2026</span></h1>
       <p id="txtHeroDesc">Ajang kompetisi Robotika & E-Sport bergengsi berbasis sinergi keahlian lintas prodi Politeknik APP Jakarta untuk melatih ketangkasan, analisis logika, dan strategi digital generasi muda Indonesia.</p>
       <button class="btn btn-merah" onclick="scrollToSection('lomba')" style="margin-top:10px;" id="btnHeroLomba">Lihat Perlombaan</button>
-      <button class="btn btn-outline" style="margin-left: 10px;" onclick="scrollToSection('tentang')" id="btnHeroTentang">Filosofi LOGIX</button>
+      <button class="btn btn-outline" style="margin-left: 10px;" onclick="scrollToSection('tentang')" id="btnHeroTentang">Tentang Kami</button>
     </div>
   </section>
 
-  <!-- TENTANG LOGIX APP (EFEK SCROLL REALTTIME SHAKE) -->
+  <!-- TENTANG LOGIX APP (EFEK SCROLL REALTIME SHAKE) -->
   <section id="tentang" class="section">
     <div class="showcase-grid scroll-reveal">
       <div class="showcase-img-box">
         <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" alt="Komunitas HEXA & Prestasi LOGIX">
         <div class="showcase-badge">
-          <b>Keluarga Komunitas HEXA</b><br>
-          <small>Sinergi Mahasiswa & Dosen Politeknik APP Jakarta</small>
+          <b id="txtBadgeTitle">Keluarga Komunitas HEXA</b><br>
+          <small id="txtBadgeSub">Sinergi Mahasiswa & Dosen Politeknik APP Jakarta</small>
         </div>
       </div>
       <div>
-        <span style="color:var(--logix-merah); font-weight:800; font-size:0.85rem; letter-spacing:1px;">ABOUT LOGIX APP 2026</span>
+        <span style="color:var(--logix-merah); font-weight:800; font-size:0.85rem; letter-spacing:1px;" id="txtAboutTag">ABOUT LOGIX APP 2026</span>
         <h2 style="font-size:2.2rem; font-weight:900; color:var(--text-dark); margin:8px 0 16px;" id="txtAboutHeading">Ajang Musiman Teknologi & Sinergi Lintas Prodi</h2>
         <p style="color:#555; margin-bottom:15px; line-height:1.7;" id="txtAboutBody1">
           <b>LOGIX APP 2026</b> merupakan acara kompetisi musiman persembahan Politeknik APP Jakarta yang diinisiasi oleh komunitas <b>HEXA</b> (wadah kolaborasi hobi dan inovasi mahasiswa bersama dosen).
@@ -352,20 +362,20 @@
     </div>
 
     <div class="grid-lomba">
-      <div class="card-lomba scroll-reveal">
-        <span class="badge-lomba">ROBOTICS COMPETITION</span>
+      <div class="card-lomba scroll-reveal" id="card-line-follower">
+        <span class="badge-lomba" id="badgeLF">ROBOTICS COMPETITION</span>
         <h3 style="color: var(--logix-merah); margin-bottom: 10px;">🤖 Line Follower Robot</h3>
-        <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Kompetisi merancang robot otonom navigasi garis lintasan tercepat dan paling presisi.</p>
+        <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;" id="descLF">Kompetisi merancang robot otonom navigasi garis lintasan tercepat dan paling presisi.</p>
         <button class="btn btn-outline" onclick="openDetailLomba('Line Follower Robot')">Guidebook</button>
-        <button class="btn btn-merah" style="margin-left: 8px;" onclick="bukaFormMultiStep('Line Follower Robot')">Daftar (Rp 200rb)</button>
+        <button class="btn btn-merah" style="margin-left: 8px;" onclick="bukaFormMultiStep('Line Follower Robot')" id="btnDaftarLF">Daftar (Rp 200rb)</button>
       </div>
 
-      <div class="card-lomba scroll-reveal">
-        <span class="badge-lomba">E-SPORT TOURNAMENT</span>
+      <div class="card-lomba scroll-reveal" id="card-mobile-legends">
+        <span class="badge-lomba" id="badgeML">E-SPORT TOURNAMENT</span>
         <h3 style="color: var(--logix-merah); margin-bottom: 10px;">🎮 Mobile Legends: Bang Bang</h3>
-        <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Turnamen Mobile Legends pertempuran tim 5v5 di Land of Dawn memperebutkan gelar Juara LOGIX 2026.</p>
+        <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;" id="descML">Turnamen Mobile Legends pertempuran tim 5v5 di Land of Dawn memperebutkan gelar Juara LOGIX 2026.</p>
         <button class="btn btn-outline" onclick="openDetailLomba('Mobile Legends: Bang Bang')">Guidebook</button>
-        <button class="btn btn-merah" style="margin-left: 8px;" onclick="bukaFormMultiStep('Mobile Legends: Bang Bang')">Daftar (Rp 150rb)</button>
+        <button class="btn btn-merah" style="margin-left: 8px;" onclick="bukaFormMultiStep('Mobile Legends: Bang Bang')" id="btnDaftarML">Daftar (Rp 150rb)</button>
       </div>
     </div>
   </section>
@@ -373,8 +383,8 @@
   <!-- FAQ (EFEK SCROLL REALTIME SHAKE) -->
   <section id="faq" class="section">
     <div class="section-title scroll-reveal">
-      <h2>FAQ (Pertanyaan Umum)</h2>
-      <p>Cari jawaban seputar teknis perlombaan LOGIX 2026</p>
+      <h2 id="txtFaqTitle">FAQ (Pertanyaan Umum)</h2>
+      <p id="txtFaqSub">Cari jawaban seputar teknis perlombaan LOGIX 2026</p>
     </div>
 
     <div class="faq-search-box scroll-reveal">
@@ -404,8 +414,8 @@
   <!-- GALERI DOKUMENTASI (EFEK SCROLL REALTIME SHAKE) -->
   <section id="galeri" class="section">
     <div class="section-title scroll-reveal">
-      <h2>GALERI LOGIX APP</h2>
-      <p>Dokumentasi keseruan dan momen terbaik kompetisi</p>
+      <h2 id="txtGalleryTitle">GALERI LOGIX APP</h2>
+      <p id="txtGallerySub">Dokumentasi keseruan dan momen terbaik kompetisi</p>
     </div>
 
     <div class="gallery-grid">
@@ -609,16 +619,16 @@
     let userWAMetadataGlobal = "";
     let isUserLoggedIn = false;
 
-    // LOGIKA ANIMASI REAKSI SCROLL REALTIME NAIK & TURUN
+    // DETEKSI SCROLL REVEAL SHAKE ANIMATION REALTIME NAIK & TURUN
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
         } else {
-          entry.target.classList.remove('revealed'); // reset agar goyang membal lagi saat di-scroll balik!
+          entry.target.classList.remove('revealed');
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.12 });
 
     document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
@@ -629,7 +639,7 @@
     function switchModal(fromId, toId) { closeModal(fromId); openModal(toId); }
     function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
 
-    // SWITCH LANGUAGE (ID / EN)
+    // SWITCH LANGUAGE (ID / EN) FULL TRANSLATE
     function setLanguage(lang) {
       document.getElementById('btnLangID').classList.toggle('active', lang === 'id');
       document.getElementById('btnLangEN').classList.toggle('active', lang === 'en');
@@ -637,17 +647,50 @@
       if(lang === 'en') {
         document.getElementById('txtHeroDesc').innerText = "A prestigious Robotics & E-Sport competition combining cross-program expertise at Politeknik APP Jakarta to cultivate agility, logic analysis, and digital strategy for the young generation.";
         document.getElementById('btnHeroLomba').innerText = "View Competitions";
-        document.getElementById('btnHeroTentang').innerText = "LOGIX Philosophy";
+        document.getElementById('btnHeroTentang').innerText = "About Us";
+        
+        document.getElementById('txtAboutTag').innerText = "ABOUT LOGIX APP 2026";
         document.getElementById('txtAboutHeading').innerText = "Seasonal Tech Event & Cross-Program Synergy";
+        document.getElementById('txtAboutBody1').innerHTML = "<b>LOGIX APP 2026</b> is a seasonal competition event presented by Politeknik APP Jakarta, initiated by the <b>HEXA</b> community (a collaborative space for student and faculty hobbies and innovation).";
+        document.getElementById('txtAboutBody2').innerHTML = "Continuing our successful track record in national events like <i>Cokro 2024</i> and <i>GKM Exhibition</i>, LOGIX unites 3 study programs: <b>Marketing (MPI)</b>, <b>International Trade (PIWAR)</b>, and <b>Logistics (MLI)</b>.";
+        document.getElementById('txtBadgeTitle').innerText = "HEXA Community Family";
+        document.getElementById('txtBadgeSub').innerText = "Synergy of Students & Lecturers at Politeknik APP Jakarta";
+
         document.getElementById('txtLombaTitle').innerText = "Competition Branches";
-        document.getElementById('txtLombaSub').innerText = "Select a competition category and register your team";
+        document.getElementById('txtLombaSub').innerText = "Select a competition category and register your best team";
+        document.getElementById('descLF').innerText = "An autonomous robot competition designing line-following navigation for the fastest and most precise lap time.";
+        document.getElementById('descML').innerText = "Mobile Legends 5v5 team tournament in Land of Dawn fighting for the LOGIX 2026 Championship title.";
+        document.getElementById('btnDaftarLF').innerText = "Register ($13 / Rp 200k)";
+        document.getElementById('btnDaftarML').innerText = "Register ($10 / Rp 150k)";
+
+        document.getElementById('txtFaqTitle').innerText = "Frequently Asked Questions (FAQ)";
+        document.getElementById('txtFaqSub').innerText = "Find answers regarding technical rules of LOGIX 2026";
+        document.getElementById('txtGalleryTitle').innerText = "LOGIX APP GALLERY";
+        document.getElementById('txtGallerySub').innerText = "Event documentation and best competition moments";
+
       } else {
         document.getElementById('txtHeroDesc').innerText = "Ajang kompetisi Robotika & E-Sport bergengsi berbasis sinergi keahlian lintas prodi Politeknik APP Jakarta untuk melatih ketangkasan, analisis logika, dan strategi digital generasi muda Indonesia.";
         document.getElementById('btnHeroLomba').innerText = "Lihat Perlombaan";
-        document.getElementById('btnHeroTentang').innerText = "Filosofi LOGIX";
+        document.getElementById('btnHeroTentang').innerText = "Tentang Kami";
+
+        document.getElementById('txtAboutTag').innerText = "ABOUT LOGIX APP 2026";
         document.getElementById('txtAboutHeading').innerText = "Ajang Musiman Teknologi & Sinergi Lintas Prodi";
+        document.getElementById('txtAboutBody1').innerHTML = "<b>LOGIX APP 2026</b> merupakan acara kompetisi musiman persembahan Politeknik APP Jakarta yang diinisiasi oleh komunitas <b>HEXA</b> (wadah kolaborasi hobi dan inovasi mahasiswa bersama dosen).";
+        document.getElementById('txtAboutBody2').innerHTML = "Melanjutkan jejak kesuksesan partisipasi di berbagai ajang nasional seperti <i>Cokro 2024</i> dan pameran <i>GKM (Gelar Karya Mahasiswa)</i>, LOGIX hadir menyatukan 3 kekuatan Prodi: <b>Pemasaran (MPI)</b>, <b>Perdagangan Internasional (PIWAR)</b>, dan <b>Logistik (MLI)</b>.";
+        document.getElementById('txtBadgeTitle').innerText = "Keluarga Komunitas HEXA";
+        document.getElementById('txtBadgeSub').innerText = "Sinergi Mahasiswa & Dosen Politeknik APP Jakarta";
+
         document.getElementById('txtLombaTitle').innerText = "Cabang Perlombaan";
         document.getElementById('txtLombaSub').innerText = "Pilih kategori perlombaan dan daftarkan tim terbaikmu";
+        document.getElementById('descLF').innerText = "Kompetisi merancang robot otonom navigasi garis lintasan tercepat dan paling presisi.";
+        document.getElementById('descML').innerText = "Turnamen Mobile Legends pertempuran tim 5v5 di Land of Dawn memperebutkan gelar Juara LOGIX 2026.";
+        document.getElementById('btnDaftarLF').innerText = "Daftar (Rp 200rb)";
+        document.getElementById('btnDaftarML').innerText = "Daftar (Rp 150rb)";
+
+        document.getElementById('txtFaqTitle').innerText = "FAQ (Pertanyaan Umum)";
+        document.getElementById('txtFaqSub').innerText = "Cari jawaban seputar teknis perlombaan LOGIX 2026";
+        document.getElementById('txtGalleryTitle').innerText = "GALERI LOGIX APP";
+        document.getElementById('txtGallerySub').innerText = "Dokumentasi keseruan dan momen terbaik kompetisi";
       }
     }
 
