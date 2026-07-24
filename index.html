@@ -164,11 +164,11 @@
     .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; position: relative; z-index: 2; }
     .showcase-img-box {
       position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.12); border: 4px solid var(--logix-merah);
-      transition: all 0.35s ease;
+      transition: all 0.35s ease; max-height: 380px;
     }
     .showcase-img-box:hover { transform: scale(1.02); box-shadow: 0 20px 40px var(--logix-merah-glow-heavy); }
     .showcase-img-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .showcase-badge { position: absolute; bottom: 20px; left: 20px; background: rgba(0,0,0,0.85); color: #FFF; padding: 10px 18px; border-radius: 12px; backdrop-filter: blur(5px); font-size: 0.85rem; border-left: 4px solid var(--logix-merah-bright); }
+    .showcase-badge { position: absolute; bottom: 15px; left: 15px; right: 15px; background: rgba(0,0,0,0.85); color: #FFF; padding: 10px 16px; border-radius: 12px; backdrop-filter: blur(5px); font-size: 0.85rem; border-left: 4px solid var(--logix-merah-bright); }
 
     .grid-lomba { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; position: relative; z-index: 2; }
     .card-lomba {
@@ -237,7 +237,7 @@
     /* GALLERY GRID */
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; position: relative; z-index: 2; }
     .gallery-card {
-      position: relative; border-radius: 16px; overflow: hidden; height: 210px;
+      position: relative; border-radius: 16px; overflow: hidden; height: 230px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       border: 3px solid rgba(255, 255, 255, 0.9); cursor: pointer;
     }
@@ -337,7 +337,6 @@
   <section class="hero">
     <div class="hero-content">
       <span class="hero-tag">POLITEKNIK APP JAKARTA</span>
-      <!-- HEADER HERO LOGIX APP 2026 -->
       <h1>LOGIX APP <span>2026</span></h1>
       <p id="txtHeroDesc" data-id="Ajang kompetisi Robotika & E-Sport bergengsi berbasis sinergi keahlian lintas prodi Politeknik APP Jakarta untuk melatih ketangkasan, analisis logika, dan strategi digital generasi muda Indonesia." data-en="A prestigious Robotics & E-Sport competition combining cross-program expertise at Politeknik APP Jakarta to cultivate agility, logic analysis, and digital strategy for the young generation.">Ajang kompetisi Robotika & E-Sport bergengsi berbasis sinergi keahlian lintas prodi Politeknik APP Jakarta untuk melatih ketangkasan, analisis logika, dan strategi digital generasi muda Indonesia.</p>
       <button class="btn btn-merah" onclick="scrollToSection('lomba')" style="margin-top:10px;" id="btnHeroLomba" data-id="Lihat Perlombaan" data-en="View Competitions">Lihat Perlombaan</button>
@@ -373,14 +372,15 @@
     </div>
   </div>
 
-  <!-- SLIDE 2: TENTANG LOGIX APP -->
+  <!-- SLIDE 2: TENTANG LOGIX APP (FOTO JUARA PRESTASI REKAP) -->
   <section id="tentang" class="section">
     <div class="showcase-grid scroll-reveal">
       <div class="showcase-img-box">
-        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" alt="Komunitas HEXA & Prestasi LOGIX">
+        <!-- FOTO UTAMA PRESTASI TERBAIK JUARA WORLD ROBOTIC COMPETITION -->
+        <img src="https://i.ibb.co.com/mCBWW22K/image-d95f53.png" alt="Juara World Robotic Competition 2025 Komunitas HEXA">
         <div class="showcase-badge">
-          <b id="txtBadgeTitle" data-id="Keluarga Komunitas HEXA" data-en="HEXA Community Family">Keluarga Komunitas HEXA</b><br>
-          <small id="txtBadgeSub" data-id="Sinergi Mahasiswa & Dosen Politeknik APP Jakarta" data-en="Synergy of Students & Lecturers at Politeknik APP Jakarta">Sinergi Mahasiswa & Dosen Politeknik APP Jakarta</small>
+          <b id="txtBadgeTitle" data-id="Prestasi Komunitas HEXA" data-en="HEXA Community Achievements">Prestasi Komunitas HEXA</b><br>
+          <small id="txtBadgeSub" data-id="Juara World Robotic Competition 2025 - Politeknik APP Jakarta" data-en="World Robotic Competition 2025 Winner - Politeknik APP Jakarta">Juara World Robotic Competition 2025 - Politeknik APP Jakarta</small>
         </div>
       </div>
       <div>
@@ -389,8 +389,8 @@
         <p style="color:#555; margin-bottom:15px; line-height:1.7;" id="txtAboutBody1" data-id="LOGIX APP 2026 merupakan acara kompetisi musiman persembahan Politeknik APP Jakarta yang diinisiasi oleh komunitas HEXA (wadah kolaborasi hobi dan inovasi mahasiswa bersama dosen)." data-en="LOGIX APP 2026 is a seasonal competition event presented by Politeknik APP Jakarta, initiated by the HEXA community (a collaborative space for student and faculty hobbies and innovation).">
           <b>LOGIX APP 2026</b> merupakan acara kompetisi musiman persembahan Politeknik APP Jakarta yang diinisiasi oleh komunitas <b>HEXA</b> (wadah kolaborasi hobi dan inovasi mahasiswa bersama dosen).
         </p>
-        <p style="color:#555; margin-bottom:20px; line-height:1.7;" id="txtAboutBody2" data-id="Melanjutkan jejak kesuksesan partisipasi di berbagai ajang nasional seperti Cokro 2024 dan pameran GKM (Gelar Karya Mahasiswa), LOGIX hadir menyatukan 3 kekuatan Prodi: Pemasaran (MPI), Perdagangan Internasional (PIWAR), dan Logistik (MLI)." data-en="Continuing our successful track record in national events like Cokro 2024 and GKM Exhibition, LOGIX unites 3 study programs: Marketing (MPI), International Trade (PIWAR), and Logistics (MLI).">
-          Melanjutkan jejak kesuksesan partisipasi di berbagai ajang nasional seperti <i>Cokro 2024</i> dan pameran <i>GKM (Gelar Karya Mahasiswa)</i>, LOGIX hadir menyatukan 3 kekuatan Prodi: <b>Pemasaran (MPI)</b>, <b>Perdagangan Internasional (PIWAR)</b>, dan <b>Logistik (MLI)</b>.
+        <p style="color:#555; margin-bottom:20px; line-height:1.7;" id="txtAboutBody2" data-id="Melanjutkan jejak kesuksesan partisipasi di berbagai ajang internasional & nasional seperti World Robotic Competition 2025, Cokro 2024, serta pameran GKM (Gelar Karya Mahasiswa), LOGIX menyatukan 3 kekuatan Prodi: Pemasaran (MPI), Perdagangan Internasional (PIWAR), dan Logistik (MLI)." data-en="Continuing our successful track record in international & national events like World Robotic Competition 2025, Cokro 2024, and GKM Exhibition, LOGIX unites 3 study programs: Marketing (MPI), International Trade (PIWAR), and Logistics (MLI).">
+          Melanjutkan jejak kesuksesan partisipasi di berbagai ajang internasional & nasional seperti <i>World Robotic Competition 2025</i>, <i>Cokro 2024</i>, serta pameran <i>GKM (Gelar Karya Mahasiswa)</i>, LOGIX menyatukan 3 kekuatan Prodi: <b>Pemasaran (MPI)</b>, <b>Perdagangan Internasional (PIWAR)</b>, dan <b>Logistik (MLI)</b>.
         </p>
       </div>
     </div>
@@ -498,25 +498,28 @@
     </div>
   </section>
 
-  <!-- SLIDE 5: GALERI LOGIX APP -->
+  <!-- SLIDE 5: GALERI LOGIX APP (3 FOTO NON-FORMAL KEBERASAMAAN) -->
   <section id="galeri" class="section">
     <div class="section-title scroll-reveal">
       <h2 id="txtGalleryTitle" data-id="GALERI LOGIX APP" data-en="LOGIX APP GALLERY">GALERI LOGIX APP</h2>
-      <p id="txtGallerySub" data-id="Dokumentasi keseruan dan momen terbaik kompetisi" data-en="Event documentation and best competition moments">Dokumentasi keseruan dan momen terbaik kompetisi</p>
+      <p id="txtGallerySub" data-id="Dokumentasi keseruan dan momen terbaik kebersamaan komunitas" data-en="Event documentation and best togetherness moments">Dokumentasi keseruan dan momen terbaik kebersamaan komunitas</p>
     </div>
 
     <div class="gallery-grid">
+      <!-- FOTO GALERI 1: CANDI -->
       <div class="gallery-card scroll-reveal">
-        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80" alt="Line Follower Robot Arena">
-        <div class="gallery-overlay">🤖 Line Follower Arena Competition</div>
+        <img src="https://i.ibb.co.com/FkrRrmq/image-d95f94.jpg" alt="Momen Kebersamaan Komunitas HEXA di Candi">
+        <div class="gallery-overlay">🏛️ Momen Kebersamaan di Candi</div>
       </div>
+      <!-- FOTO GALERI 2: MAKAN BARENG -->
       <div class="gallery-card scroll-reveal">
-        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="E-Sport MLBB Tournament">
-        <div class="gallery-overlay">🎮 Mobile Legends Tournament Stage</div>
+        <img src="https://i.ibb.co.com/B28NrtR1/image-d95f79.jpg" alt="Kumpul & Makan Bareng Keluarga HEXA">
+        <div class="gallery-overlay">🍲 Kumpul & Makan Bareng Tim</div>
       </div>
+      <!-- FOTO GALERI 3: SELFIE CANDID -->
       <div class="gallery-card scroll-reveal">
-        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80" alt="Keluarga HEXA & Panitia">
-        <div class="gallery-overlay">👥 Kolaborasi Komunitas HEXA APP</div>
+        <img src="https://i.ibb.co.com/83p1X2q sequence/image-d95f71.jpg" alt="Selfie Seru Komunitas HEXA APP">
+        <div class="gallery-overlay">📸 Selfie Seru Keluarga HEXA</div>
       </div>
     </div>
   </section>
