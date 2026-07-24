@@ -434,11 +434,12 @@
       `;
     }
 
-    // 1. REGISTER SUPABASE AUTH
+    // 1. REGISTER SUPABASE AUTH (TERMASUK INPUT NO WA PESERTA)
     async function handleRegister(e) {
       e.preventDefault();
       const nama = document.getElementById('regNama').value;
       const email = document.getElementById('regEmail').value;
+      const wa = document.getElementById('regWA').value;
       const pass = document.getElementById('regPass').value;
       const confirmPass = document.getElementById('regPassConfirm').value;
 
@@ -450,7 +451,12 @@
       const { data, error } = await supabaseClient.auth.signUp({
         email: email,
         password: pass,
-        options: { data: { full_name: nama } }
+        options: { 
+          data: { 
+            full_name: nama,
+            whatsapp: wa 
+          } 
+        }
       });
 
       btn.innerText = "Daftar Akun"; btn.disabled = false;
