@@ -12,7 +12,7 @@
     :root {
       --logix-merah: #B71C1C;
       --logix-merah-bright: #E53935;
-      --logix-merah-glow: rgba(229, 57, 53, 0.35);
+      --logix-merah-glow: rgba(229, 57, 53, 0.45);
       --logix-putih: #FFFFFF;
       --logix-bg: #F5F3F6;
       --logix-card-bg: rgba(255, 255, 255, 0.94);
@@ -41,6 +41,13 @@
       100% { opacity: 1; transform: translateY(0) scale(1); }
     }
 
+    /* ANIMASI FOKUS INTERAKSI NYALA RED SHADOW + MEMBAL KARTU */
+    @keyframes highlightFocusGlow {
+      0% { transform: translateY(-12px) scale(1.04); border-color: var(--logix-merah-bright); box-shadow: 0 0 35px var(--logix-merah-glow), 0 0 15px var(--logix-merah); }
+      50% { transform: translateY(-16px) scale(1.06); border-color: var(--logix-merah-bright); box-shadow: 0 0 50px rgba(229, 57, 53, 0.8), 0 0 25px var(--logix-merah); }
+      100% { transform: translateY(0) scale(1); border-color: rgba(183, 28, 28, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+    }
+
     @keyframes borderGlowPulse {
       0% { border-color: rgba(183, 28, 28, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
       50% { border-color: rgba(229, 57, 53, 0.8); box-shadow: 0 12px 35px var(--logix-merah-glow); }
@@ -55,6 +62,11 @@
 
     .scroll-reveal.revealed {
       animation: popShakeRealtime 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    /* EFEK NYALA MERAH SHADOW KETIKA DIPILIH DARI DROPDOWN */
+    .card-lomba.focused-glow {
+      animation: highlightFocusGlow 2.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
     }
 
     /* NAVBAR & DROPDOWN */
@@ -152,6 +164,7 @@
       background: var(--logix-card-bg); backdrop-filter: blur(10px);
       padding: 32px; border-radius: 18px; border: 2px solid rgba(183, 28, 28, 0.25);
       box-shadow: 0 10px 30px rgba(0,0,0,0.06); transition: all 0.35s ease;
+      scroll-margin-top: 120px;
     }
     .card-lomba:hover {
       transform: translateY(-10px) scale(1.02); border-color: var(--logix-merah-bright);
@@ -295,8 +308,8 @@
       <li class="nav-item">
         <a class="nav-link">Kompetisi ▾</a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" onclick="scrollToSection('card-line-follower')">🤖 Line Follower</a>
-          <a class="dropdown-item" onclick="scrollToSection('card-mobile-legends')">🎮 Mobile Legends</a>
+          <a class="dropdown-item" onclick="focusAndScrollLomba('card-line-follower')">🤖 Line Follower</a>
+          <a class="dropdown-item" onclick="focusAndScrollLomba('card-mobile-legends')">🎮 Mobile Legends</a>
           <a class="dropdown-item" style="opacity:0.6;">🌐 IoT Competition <span class="badge-cs">Soon</span></a>
           <a class="dropdown-item" style="opacity:0.6;">📦 Transporter Bot <span class="badge-cs">Soon</span></a>
           <a class="dropdown-item" style="opacity:0.6;">⚽ SoccerBot <span class="badge-cs">Soon</span></a>
@@ -331,7 +344,7 @@
     </div>
   </section>
 
-  <!-- TENTANG LOGIX APP (EFEK SCROLL REALTIME SHAKE) -->
+  <!-- TENTANG LOGIX APP -->
   <section id="tentang" class="section">
     <div class="showcase-grid scroll-reveal">
       <div class="showcase-img-box">
@@ -354,7 +367,7 @@
     </div>
   </section>
 
-  <!-- PERLOMBAAN (EFEK SCROLL REALTIME SHAKE) -->
+  <!-- PERLOMBAAN -->
   <section id="lomba" class="section">
     <div class="section-title scroll-reveal">
       <h2 id="txtLombaTitle">Cabang Perlombaan</h2>
@@ -380,7 +393,7 @@
     </div>
   </section>
 
-  <!-- FAQ (EFEK SCROLL REALTIME SHAKE) -->
+  <!-- FAQ -->
   <section id="faq" class="section">
     <div class="section-title scroll-reveal">
       <h2 id="txtFaqTitle">FAQ (Pertanyaan Umum)</h2>
@@ -411,7 +424,7 @@
     </div>
   </section>
 
-  <!-- GALERI DOKUMENTASI (EFEK SCROLL REALTIME SHAKE) -->
+  <!-- GALERI DOKUMENTASI -->
   <section id="galeri" class="section">
     <div class="section-title scroll-reveal">
       <h2 id="txtGalleryTitle">GALERI LOGIX APP</h2>
@@ -638,6 +651,23 @@
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     function switchModal(fromId, toId) { closeModal(fromId); openModal(toId); }
     function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+
+    // DENGAN EFEK MEMBAL & GLOW SHADOW PADA KARTU LOMBA SPESIFIK YNG DIPILIH
+    function focusAndScrollLomba(cardId) {
+      const targetCard = document.getElementById(cardId);
+      if(targetCard) {
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Lepas kelas terdahulu lalu beri efek pemicu nyala & membal
+        targetCard.classList.remove('focused-glow');
+        void targetCard.offsetWidth; // Force Reflow Trigger
+        targetCard.classList.add('focused-glow');
+
+        setTimeout(() => {
+          targetCard.classList.remove('focused-glow');
+        }, 2300);
+      }
+    }
 
     // SWITCH LANGUAGE (ID / EN) FULL TRANSLATE
     function setLanguage(lang) {
