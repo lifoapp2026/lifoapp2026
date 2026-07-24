@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIFO APP 2026 - Politeknik APP Jakarta</title>
+  <style>
+    :root {
+      --app-merah: #B71C1C;
+      --app-merah-bright: #D32F2F;
+      --app-putih: #FFFFFF;
+      --app-bg: #FAFAFC;
+      --text-dark: #1E1E1E;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: var(--app-bg); color: var(--text-dark); line-height: 1.6; }
+
+    /* NAVBAR */
+    nav {
+      background: var(--app-putih); padding: 18px 8%; display: flex;
+      justify-content: space-between; align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04); position: sticky; top: 0; z-index: 100;
+    }
+    .brand { font-size: 1.4rem; font-weight: 800; color: var(--app-merah); letter-spacing: 1px; }
+
+    /* HERO BANNER */
+    .hero {
+      position: relative; background: var(--app-putih); padding: 90px 8% 70px;
+      overflow: hidden; border-bottom: 2px solid #F0F0F0;
+    }
+    .hero::after {
+      content: ""; position: absolute; top: -60px; right: -60px;
+      width: 320px; height: 320px;
+      background: linear-gradient(135deg, var(--app-merah-bright), var(--app-merah));
+      transform: rotate(45deg); border-radius: 40px; opacity: 0.9;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 650px; }
+    .hero h1 { font-size: 2.8rem; color: var(--text-dark); margin-bottom: 15px; font-weight: 800; }
+    .hero h1 span { color: var(--app-merah); }
+
+    /* BUTTONS */
+    .btn {
+      padding: 12px 28px; border-radius: 8px; font-weight: bold; border: none; cursor: pointer;
+      transition: all 0.25s ease; font-size: 0.95rem; display: inline-block; text-decoration: none;
+    }
+    .btn-merah { background: var(--app-merah); color: white; }
+    .btn-merah:hover { background: var(--app-merah-bright); box-shadow: 0 6px 16px rgba(183, 28, 28, 0.25); }
+    .btn-outline { background: transparent; border: 2px solid var(--app-merah); color: var(--app-merah); }
+    .btn-outline:hover { background: #FFEBEE; }
+    .btn-drive { background: #0F9D58; color: white; display: block; text-align: center; margin-top: 12px; }
+    .btn-drive:hover { background: #0B8043; }
+
+    /* SECTIONS */
+    .section { padding: 70px 8%; }
+    .section-title { text-align: center; margin-bottom: 45px; }
+    .section-title h2 { font-size: 2rem; color: var(--app-merah); font-weight: 800; }
+
+    .grid-about { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .about-card {
+      background: var(--app-putih); padding: 30px; border-radius: 14px;
+      border-left: 5px solid var(--app-merah); box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+    .grid-lomba { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+    .card-lomba {
+      background: var(--app-putih); border-radius: 14px; border: 1px solid #EBEBEB;
+      padding: 30px; position: relative; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      transition: 0.3s;
+    }
+    .card-lomba:hover { transform: translateY(-5px); border-color: var(--app-merah); }
+    .badge-lomba {
+      display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem;
+      font-weight: bold; background: #FFEBEE; color: var(--app-merah); margin-bottom: 12px;
+    }
+
+    /* MODAL POP-UP */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.65); display: none; justify-content: center; align-items: center;
+      z-index: 1000; padding: 20px;
+    }
+    .modal-box {
+      background: white; border-radius: 16px; width: 100%; max-width: 480px;
+      padding: 35px; position: relative; border-top: 8px solid var(--app-merah);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2); animation: pop 0.3s ease; max-height: 90vh; overflow-y: auto;
+    }
+    @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .close-btn { position: absolute; top: 15px; right: 20px; font-size: 26px; cursor: pointer; color: #999; }
+    .close-btn:hover { color: var(--app-merah); }
+
+    .form-group { margin-bottom: 16px; text-align: left; }
+    .form-group label { display: block; margin-bottom: 6px; font-weight: bold; font-size: 0.88rem; color: #444; }
+    .form-group input, .form-group select {
+      width: 100%; padding: 11px; border: 1px solid #CCC; border-radius: 8px; outline: none; font-size: 0.92rem;
+    }
+    .form-group input:focus { border-color: var(--app-merah); }
+
+    .switch-link { text-align: center; margin-top: 15px; font-size: 0.88rem; color: #666; }
+    .switch-link a { color: var(--app-merah); font-weight: bold; text-decoration: none; cursor: pointer; }
+
+    footer { background: #151515; color: white; text-align: center; padding: 25px; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="brand">LIFO APP 2026</div>
+    <div id="navUserArea">
+      <button class="btn btn-outline" onclick="openModal('modalLogin')">Masuk</button>
+      <button class="btn btn-merah" style="margin-left: 8px;" onclick="openModal('modalRegister')">Daftar</button>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Logistics & Industrial <span>Festival (LIFO)</span></h1>
+      <p>Ajang kompetisi Robotika & E-Sport bergengsi persembahan Politeknik APP Jakarta untuk melatih ketangkasan dan inovasi generasi muda Indonesia.</p>
+      <button class="btn btn-merah" onclick="scrollToSection('lomba')">Lihat Perlombaan</button>
+      <button class="btn btn-outline" style="margin-left: 10px;" onclick="scrollToSection('tentang')">Tentang LIFO</button>
+    </div>
+  </section>
+
+  <!-- TENTANG LIFO APP -->
+  <section id="tentang" class="section">
+    <div class="section-title">
+      <h2>Mengapa LIFO APP Dibuat?</h2>
+      <p>Mengenal lebih dekat visi dan tujuan ajang kompetisi Politeknik APP Jakarta</p>
+    </div>
+    <div class="grid-about">
+      <div class="about-card">
+        <h3>🤖 Inovasi Robotika</h3>
+        <p>Memfasilitasi bakat mahasiswa dalam merancang dan memprogram robot jalur otomatis (*Line Follower*) yang presisi dan tangguh.</p>
+      </div>
+      <div class="about-card">
+        <h3>🎮 Ketangkasan E-Sport</h3>
+        <p>Wadah kompetisi *Mobile Legends* untuk mengasah strategi tim, komunikasi, serta semangat sportivitas tinggi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERLOMBAAN -->
+  <section id="lomba" class="section" style="background: #FFF;">
+    <div class="section-title">
+      <h2>Cabang Perlombaan</h2>
+      <p>Pilih kategori perlombaan dan unduh guidebook resminya</p>
+    </div>
+
+    <div class="grid-lomba">
+      <div class="card-lomba">
+        <span class="badge-lomba">ROBOTICS COMPETITION</span>
+        <h3 style="color: var(--app-merah); margin-bottom: 10px;">🤖 Line Follower Robot</h3>
+        <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Kompetisi merancang robot otonom navigasi garis lintasan tercepat dan paling presisi di arena khusus.</p>
+        <button class="btn btn-outline" onclick="openDetailLomba('Line Follower Robot')">Detail & Guidebook</button>
+        <button class="btn btn-merah" style="margin-left: 8px;" onclick="bukaFormPendaftaran('Line Follower Robot')">Daftar</button>
+      </div>
+
+      <div class="card-lomba">
+        <span class="badge-lomba">E-SPORT TOURNAMENT</span>
+        <h3 style="color: var(--app-merah); margin-bottom: 10px;">🎮 Mobile Legends: Bang Bang</h3>
+        <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Turnamen Mobile Legends pertempuran tim 5v5 di Land of Dawn untuk memperebutkan gelar Juara LIFO 2026.</p>
+        <button class="btn btn-outline" onclick="openDetailLomba('Mobile Legends: Bang Bang')">Detail & Guidebook</button>
+        <button class="btn btn-merah" style="margin-left: 8px;" onclick="bukaFormPendaftaran('Mobile Legends: Bang Bang')">Daftar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL 1: REGISTRASI AKUN -->
+  <div id="modalRegister" class="modal-overlay">
+    <div class="modal-box">
+      <span class="close-btn" onclick="closeModal('modalRegister')">&times;</span>
+      <h3 style="color: var(--app-merah); margin-bottom: 8px; text-align: center;">Daftar Akun LIFO</h3>
+      
+      <form onsubmit="handleRegister(event)">
+        <div class="form-group">
+          <label>Nama Lengkap</label>
+          <input type="text" id="regNama" required placeholder="Masukkan nama lengkap">
+        </div>
+        <div class="form-group">
+          <label>Email Aktif</label>
+          <input type="email" id="regEmail" required placeholder="email@domain.com">
+        </div>
+        <div class="form-group">
+          <label>No. WhatsApp</label>
+          <input type="tel" id="regWA" required placeholder="081234567890">
+        </div>
+        <div class="form-group">
+          <label>Kata Sandi (Password)</label>
+          <input type="password" id="regPass" required placeholder="Buat kata sandi">
+        </div>
+        <div class="form-group">
+          <label>Konfirmasi Kata Sandi</label>
+          <input type="password" id="regPassConfirm" required placeholder="Ulangi kata sandi">
+        </div>
+        <button type="submit" id="btnRegister" class="btn btn-merah" style="width: 100%;">Daftar Akun</button>
+      </form>
+      <div class="switch-link">
+        Sudah punya akun? <a onclick="switchModal('modalRegister', 'modalLogin')">Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: INPUT VERIFIKASI OTP -->
+  <div id="modalOTP" class="modal-overlay">
+    <div class="modal-box">
+      <span class="close-btn" onclick="closeModal('modalOTP')">&times;</span>
+      <h3 style="color: var(--app-merah); margin-bottom: 8px; text-align: center;">Verifikasi WhatsApp</h3>
+      <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px; text-align: center;">Masukkan 4-digit kode OTP yang telah dikirim ke WhatsApp Anda.</p>
+      
+      <form onsubmit="handleVerifikasiOTP(event)">
+        <div class="form-group">
+          <label style="text-align: center;">Kode Verifikasi OTP</label>
+          <input type="text" id="inputOTP" required maxlength="4" style="text-align: center; font-size: 1.6rem; letter-spacing: 6px;">
+        </div>
+        <button type="submit" id="btnVerify" class="btn btn-merah" style="width: 100%;">Aktivasi Akun</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 3: LOGIN AKUN -->
+  <div id="modalLogin" class="modal-overlay">
+    <div class="modal-box">
+      <span class="close-btn" onclick="closeModal('modalLogin')">&times;</span>
+      <h3 style="color: var(--app-merah); margin-bottom: 15px; text-align: center;">Login Peserta</h3>
+      
+      <form onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="loginEmail" required placeholder="Masukkan email terdaftar">
+        </div>
+        <div class="form-group">
+          <label>Kata Sandi</label>
+          <input type="password" id="loginPass" required placeholder="Masukkan kata sandi">
+        </div>
+        <button type="submit" id="btnLogin" class="btn btn-merah" style="width: 100%;">Masuk Akun</button>
+      </form>
+      
+      <div class="switch-link">
+        <a onclick="switchModal('modalLogin', 'modalResetPass')">Lupa Kata Sandi?</a>
+      </div>
+      <div class="switch-link" style="margin-top: 8px;">
+        Belum punya akun? <a onclick="switchModal('modalLogin', 'modalRegister')">Daftar Sekarang</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: LUPA KATA SANDI -->
+  <div id="modalResetPass" class="modal-overlay">
+    <div class="modal-box">
+      <span class="close-btn" onclick="closeModal('modalResetPass')">&times;</span>
+      <h3 style="color: var(--app-merah); margin-bottom: 8px; text-align: center;">Pemulihan Kata Sandi</h3>
+      <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px; text-align: center;">Masukkan email Anda dan buat Kata Sandi Baru.</p>
+      
+      <form onsubmit="handleResetPass(event)">
+        <div class="form-group">
+          <label>Email Terdaftar</label>
+          <input type="email" id="resetEmail" required placeholder="Masukkan email Anda">
+        </div>
+        <div class="form-group">
+          <label>Kata Sandi Baru</label>
+          <input type="password" id="resetPassBaru" required placeholder="Masukkan kata sandi baru">
+        </div>
+        <button type="submit" id="btnReset" class="btn btn-merah" style="width: 100%;">Perbarui Kata Sandi</button>
+      </form>
+      <div class="switch-link">
+        Kembali ke <a onclick="switchModal('modalResetPass', 'modalLogin')">Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 5: DETAIL LOMBA & LINK GUIDEBOOK DRIVE -->
+  <div id="modalDetailLomba" class="modal-overlay">
+    <div class="modal-box">
+      <span class="close-btn" onclick="closeModal('modalDetailLomba')">&times;</span>
+      <h3 id="detJudul" style="color: var(--app-merah); margin-bottom: 12px;"></h3>
+      <div id="detPesan" style="color: #555; font-size: 0.93rem; line-height: 1.6; margin-bottom: 20px;"></div>
+      
+      <a id="btnLinkDrive" href="#" target="_blank" class="btn btn-drive">
+        📁 Download Guidebook (Google Drive)
+      </a>
+      <button id="btnDaftarDariDetail" class="btn btn-merah" style="width: 100%; margin-top: 10px;">
+        Daftar Lomba Ini
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL 6: FORM PENDAFTARAN LOMBA -->
+  <div id="modalLomba" class="modal-overlay">
+    <div class="modal-box">
+      <span class="close-btn" onclick="closeModal('modalLomba')">&times;</span>
+      <h3 style="color: var(--app-merah); margin-bottom: 8px;">Form Pendaftaran Lomba</h3>
+      <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">Silakan isi data tim Anda untuk mendaftar.</p>
+      
+      <form onsubmit="handleDaftarLomba(event)">
+        <div class="form-group">
+          <label>Email Peserta</label>
+          <input type="email" id="lombaEmail" readonly style="background: #F0F0F0; color: #555;">
+        </div>
+        <div class="form-group">
+          <label>Cabang Lomba</label>
+          <select id="pilihLomba" required>
+            <option value="Line Follower Robot">🤖 Line Follower Robot</option>
+            <option value="Mobile Legends: Bang Bang">🎮 Mobile Legends: Bang Bang</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Nama Tim / Peserta</label>
+          <input type="text" id="namaTim" required placeholder="Contoh: Tim Robot APP / Esport APP">
+        </div>
+        <div class="form-group">
+          <label>Asal Kampus / Sekolah</label>
+          <input type="text" id="institusi" required placeholder="Politeknik APP Jakarta">
+        </div>
+        <button type="submit" id="btnDaftarLomba" class="btn btn-merah" style="width: 100%;">Daftar Lomba Sekarang</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 Politeknik APP Jakarta - All Rights Reserved
+  </footer>
+
+  <script>
+    // URL Web App Google Apps Script Kamu (Terhubung ke Google Sheets)
+    const API_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycby9f_hgxoDHOCSjcOXQHZke3dotHSOKiv6e16ZkdJeWwQUASwgnJB1lYHOYb-_h4lEy/exec";
+
+    // LINK DRIVE GUIDEBOOK RESMI
+    const LINK_DRIVE_LINE_FOLLOWER = "https://drive.google.com/drive/folders/1wv6X_JyJ0_euOrOTc4d-GLzHMwJrQVc5?usp=drive_link"; 
+    const LINK_DRIVE_MOBILE_LEGENDS = "https://drive.google.com/drive/folders/1vP2oerj8ezRzfVk1uNBwDKELVjy1X5MM?usp=sharing";
+
+    let userEmailGlobal = "";
+    let isUserLoggedIn = false;
+    let currentNamaUser = "";
+
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    function switchModal(fromId, toId) { closeModal(fromId); openModal(toId); }
+    function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+
+    // POPUP DETAIL & GUIDEBOOK
+    function openDetailLomba(jenisLomba) {
+      const judul = document.getElementById('detJudul');
+      const deskripsi = document.getElementById('detPesan');
+      const linkDrive = document.getElementById('btnLinkDrive');
+      const btnDaftar = document.getElementById('btnDaftarDariDetail');
+
+      if(jenisLomba === 'Line Follower Robot') {
+        judul.innerText = "🤖 Line Follower Robot";
+        deskripsi.innerHTML = `
+          <b>Deskripsi Lomba:</b><br>
+          Line Follower Robot adalah kompetisi rancang bangun robot otonom yang bertugas menyusuri garis lintasan secara otomatis hingga garis finish.<br><br>
+          <b>Ketentuan Tim:</b>
+          <ul>
+            <li>• 1 Tim terdiri dari 2 - 3 Anggota.</li>
+            <li>• Robot bersifat otonom (bebas mikroprosesor).</li>
+            <li>• Menggunakan baterai bawaan mandiri.</li>
+          </ul>
+        `;
+        linkDrive.href = LINK_DRIVE_LINE_FOLLOWER;
+        btnDaftar.onclick = function() { closeModal('modalDetailLomba'); bukaFormPendaftaran('Line Follower Robot'); };
+      } else {
+        judul.innerText = "🎮 Mobile Legends: Bang Bang";
+        deskripsi.innerHTML = `
+          <b>Deskripsi Lomba:</b><br>
+          Turnamen E-Sport resmi LIFO APP 2026 dengan sistem Draft Pick Custom Room 5v5 di Land of Dawn.<br><br>
+          <b>Ketentuan Tim:</b>
+          <ul>
+            <li>• 1 Tim terdiri dari 5 Pemain Utama + 1 Cadangan.</li>
+            <li>• Bebas menggunakan Skin & Emote.</li>
+            <li>• Sistem Pertandingan: Knockout (BO3).</li>
+          </ul>
+        `;
+        linkDrive.href = LINK_DRIVE_MOBILE_LEGENDS;
+        btnDaftar.onclick = function() { closeModal('modalDetailLomba'); bukaFormPendaftaran('Mobile Legends: Bang Bang'); };
+      }
+
+      openModal('modalDetailLomba');
+    }
+
+    // FORM PENDAFTARAN LOMBA
+    function bukaFormPendaftaran(cabangDefault) {
+      if(!isUserLoggedIn) {
+        alert("Silakan Login terlebih dahulu untuk mendaftar lomba!");
+        openModal('modalLogin');
+        return;
+      }
+      document.getElementById('lombaEmail').value = userEmailGlobal;
+      document.getElementById('pilihLomba').value = cabangDefault;
+      openModal('modalLomba');
+    }
+
+    // LOGOUT USER
+    function handleLogout() {
+      isUserLoggedIn = false;
+      userEmailGlobal = "";
+      currentNamaUser = "";
+      alert("Anda telah keluar dari akun.");
+      document.getElementById('navUserArea').innerHTML = `
+        <button class="btn btn-outline" onclick="openModal('modalLogin')">Masuk</button>
+        <button class="btn btn-merah" style="margin-left: 8px;" onclick="openModal('modalRegister')">Daftar</button>
+      `;
+    }
+
+    // FUNGSIONALITAS API CONNECTOR
+    function callBackend(action, payload, callback) {
+      fetch(API_APPS_SCRIPT, {
+        method: 'POST',
+        body: JSON.stringify({ action: action, payload: payload })
+      })
+      .then(res => res.json())
+      .then(data => callback(data))
+      .catch(err => callback({ success: false, message: "Koneksi Error: " + err.toString() }));
+    }
+
+    // 1. REGISTER
+    function handleRegister(e) {
+      e.preventDefault();
+      const pass = document.getElementById('regPass').value;
+      const confirmPass = document.getElementById('regPassConfirm').value;
+
+      if(pass !== confirmPass) { alert("Konfirmasi Kata Sandi tidak cocok!"); return; }
+
+      const btn = document.getElementById('btnRegister');
+      btn.innerText = "Membuat Akun..."; btn.disabled = true;
+
+      userEmailGlobal = document.getElementById('regEmail').value;
+      const data = {
+        nama: document.getElementById('regNama').value,
+        email: userEmailGlobal,
+        whatsapp: document.getElementById('regWA').value,
+        password: pass
+      };
+
+      callBackend('buatAkunUser', data, function(res) {
+        if(res.success) {
+          const formData = new FormData();
+          formData.append('target', res.noWA);
+          formData.append('message', res.pesanWA);
+
+          fetch('https://api.fonnte.com/send', {
+            method: 'POST',
+            headers: { 'Authorization': 'b46S9qT5RKdom69eFsea' },
+            body: formData
+          }).finally(() => {
+            alert("Akun terbuat! Kode OTP telah dikirim ke WA " + res.noWA);
+            btn.innerText = "Daftar Akun"; btn.disabled = false;
+            closeModal('modalRegister');
+            openModal('modalOTP');
+          });
+        } else {
+          alert(res.message);
+          btn.innerText = "Daftar Akun"; btn.disabled = false;
+        }
+      });
+    }
+
+    // 2. VERIFIKASI OTP
+    function handleVerifikasiOTP(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnVerify');
+      btn.innerText = "Memeriksa OTP..."; btn.disabled = true;
+
+      const otpInput = document.getElementById('inputOTP').value;
+
+      callBackend('verifikasiOTP', { email: userEmailGlobal, otp: otpInput }, function(res) {
+        alert(res.message);
+        btn.innerText = "Aktivasi Akun"; btn.disabled = false;
+        if(res.success) {
+          closeModal('modalOTP');
+          openModal('modalLogin');
+        }
+      });
+    }
+
+    // 3. LOGIN
+    function handleLogin(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnLogin');
+      btn.innerText = "Memeriksa..."; btn.disabled = true;
+
+      const email = document.getElementById('loginEmail').value;
+      const pass = document.getElementById('loginPass').value;
+
+      callBackend('loginUser', { email: email, password: pass }, function(res) {
+        btn.innerText = "Masuk Akun"; btn.disabled = false;
+        if(res.success) {
+          isUserLoggedIn = true;
+          userEmailGlobal = email;
+          currentNamaUser = res.nama;
+          closeModal('modalLogin');
+
+          document.getElementById('navUserArea').innerHTML = `
+            <span style="font-weight:bold; color:var(--app-merah); margin-right:12px;">Halo, ${res.nama}</span>
+            <button class="btn btn-outline" style="padding:8px 16px; font-size:0.85rem;" onclick="handleLogout()">Keluar</button>
+          `;
+
+          alert("Login Berhasil! Selamat datang di LIFO APP 2026.");
+        } else {
+          alert(res.message);
+        }
+      });
+    }
+
+    // 4. RESET PASS
+    function handleResetPass(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnReset');
+      btn.innerText = "Memproses..."; btn.disabled = true;
+
+      const email = document.getElementById('resetEmail').value;
+      const passBaru = document.getElementById('resetPassBaru').value;
+
+      callBackend('resetPasswordWA', { email: email, passwordBaru: passBaru }, function(res) {
+        if(res.success) {
+          const formData = new FormData();
+          formData.append('target', res.noWA);
+          formData.append('message', res.pesanWA);
+
+          fetch('https://api.fonnte.com/send', {
+            method: 'POST',
+            headers: { 'Authorization': 'b46S9qT5RKdom69eFsea' },
+            body: formData
+          }).finally(() => {
+            alert(res.message);
+            btn.innerText = "Perbarui Kata Sandi"; btn.disabled = false;
+            closeModal('modalResetPass');
+            openModal('modalLogin');
+          });
+        } else {
+          alert(res.message);
+          btn.innerText = "Perbarui Kata Sandi"; btn.disabled = false;
+        }
+      });
+    }
+
+    // 5. SIMPAN LOMBA
+    function handleDaftarLomba(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnDaftarLomba');
+      btn.innerText = "Menyimpan..."; btn.disabled = true;
+
+      const dataLomba = {
+        email: userEmailGlobal,
+        cabangLomba: document.getElementById('pilihLomba').value,
+        namaTim: document.getElementById('namaTim').value,
+        institusi: document.getElementById('institusi').value
+      };
+
+      callBackend('simpanLomba', dataLomba, function(res) {
+        alert(res.message);
+        btn.innerText = "Daftar Lomba Sekarang"; btn.disabled = false;
+        if(res.success) {
+          closeModal('modalLomba');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
